@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="1" unitdist="mil" unit="mil" style="lines" multiple="1" display="no" altdistance="0.025" altunitdist="inch" altunit="inch"/>
+<grid distance="5" unitdist="mil" unit="mil" style="lines" multiple="1" display="no" altdistance="1" altunitdist="mil" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -132,13 +132,14 @@
 </layers>
 <board>
 <plain>
-<wire x1="0" y1="0" x2="100" y2="0" width="0" layer="20"/>
-<wire x1="100" y1="0" x2="100" y2="80" width="0" layer="20"/>
-<wire x1="100" y1="80" x2="0" y2="80" width="0" layer="20"/>
-<wire x1="0" y1="80" x2="0" y2="0" width="0" layer="20"/>
-<wire x1="95.25" y1="1272.54" x2="95.25" y2="256.54" width="0.0254" layer="20"/>
-<wire x1="254" y1="1272.54" x2="95.25" y2="1272.54" width="0.0254" layer="20"/>
-<wire x1="95.25" y1="256.54" x2="254" y2="256.54" width="0.0254" layer="20"/>
+<wire x1="37.211" y1="0" x2="45.085" y2="7.874" width="0" layer="20" curve="90"/>
+<wire x1="45.085" y1="7.874" x2="45.085" y2="12.446" width="0" layer="20"/>
+<wire x1="45.085" y1="12.446" x2="37.211" y2="20.32" width="0" layer="20" curve="90"/>
+<wire x1="37.211" y1="20.32" x2="25.781" y2="20.32" width="0" layer="20"/>
+<wire x1="25.781" y1="4.064" x2="23.241" y2="2.794" width="0" layer="20"/>
+<wire x1="23.241" y1="2.794" x2="23.241" y2="0" width="0" layer="20"/>
+<wire x1="23.241" y1="0" x2="37.211" y2="0" width="0" layer="20"/>
+<wire x1="25.781" y1="4.064" x2="25.781" y2="20.32" width="0" layer="20"/>
 </plain>
 <libraries>
 <library name="Connector">
@@ -197,35 +198,6 @@
 <vertex x="-3.4925" y="3.3655" curve="-90"/>
 </polygon>
 <rectangle x1="-3.81" y1="-4.572" x2="3.81" y2="4.572" layer="39"/>
-</package>
-<package name="2P-SMD-2.0-90D">
-<wire x1="-4" y1="3" x2="-3.4" y2="3" width="0.127" layer="21"/>
-<wire x1="-3.4" y1="3" x2="3.4" y2="3" width="0.127" layer="21"/>
-<wire x1="3.4" y1="3" x2="4" y2="3" width="0.127" layer="21"/>
-<wire x1="4" y1="3" x2="4" y2="-3" width="0.127" layer="21"/>
-<wire x1="4" y1="-3" x2="-4" y2="-3" width="0.127" layer="21"/>
-<wire x1="-4" y1="-3" x2="-4" y2="3" width="0.127" layer="21"/>
-<wire x1="-4" y1="3" x2="-4" y2="4.8" width="0.127" layer="21"/>
-<wire x1="-4" y1="4.8" x2="-3.4" y2="4.8" width="0.127" layer="21"/>
-<wire x1="-3.4" y1="4.8" x2="-3.4" y2="3" width="0.127" layer="21"/>
-<wire x1="3.4" y1="3" x2="3.4" y2="4.8" width="0.127" layer="21"/>
-<wire x1="3.4" y1="4.8" x2="4" y2="4.8" width="0.127" layer="21"/>
-<wire x1="4" y1="4.8" x2="4" y2="3" width="0.127" layer="21"/>
-<wire x1="-3.302" y1="4.826" x2="-3.302" y2="3.048" width="0.127" layer="39"/>
-<wire x1="-3.302" y1="3.048" x2="3.302" y2="3.048" width="0.127" layer="39"/>
-<wire x1="3.302" y1="3.048" x2="3.302" y2="4.826" width="0.127" layer="39"/>
-<wire x1="3.302" y1="4.826" x2="4.064" y2="4.826" width="0.127" layer="39"/>
-<wire x1="4.064" y1="4.826" x2="4.064" y2="-3.048" width="0.127" layer="39"/>
-<wire x1="4.064" y1="-3.048" x2="-4.064" y2="-3.048" width="0.127" layer="39"/>
-<wire x1="-4.064" y1="-3.048" x2="-4.064" y2="4.826" width="0.127" layer="39"/>
-<wire x1="-4.064" y1="4.826" x2="-3.302" y2="4.826" width="0.127" layer="39"/>
-<smd name="+" x="-1" y="4.953" dx="3.6" dy="1" layer="1" roundness="50" rot="R90"/>
-<smd name="-" x="1" y="4.953" dx="3.6" dy="1" layer="1" roundness="50" rot="R90"/>
-<smd name="4" x="-3.4" y="-2.181" dx="2.4" dy="2" layer="1" roundness="50" rot="R90"/>
-<smd name="3" x="3.4" y="-2.181" dx="2.4" dy="2" layer="1" roundness="50" rot="R90"/>
-<text x="-1.905" y="7.62" size="0.889" layer="25" ratio="11">&gt;NAME</text>
-<text x="-1.905" y="0" size="0.889" layer="27" ratio="11">&gt;VALUE</text>
-<text x="-0.762" y="-0.127" size="0.254" layer="33" ratio="10">&gt;NAME</text>
 </package>
 </packages>
 </library>
@@ -442,9 +414,8 @@ design rules under a new name.</description>
 </pass>
 </autorouter>
 <elements>
-<element name="J1" library="Connector" package="MINI-B-5P-SMD" value="MINI-USB-5P-3400030P1" x="31.75" y="44.45"/>
-<element name="J2" library="Connector" package="2P-SMD-2.0-90D" value="" x="50.8" y="29.21"/>
-<element name="U1" library="IC" package="DFN8" value="CN3065-1320040P1" x="33.02" y="17.78"/>
+<element name="J1" library="Connector" package="MINI-B-5P-SMD" value="MINI-USB-5P-3400030P1" x="35.0266" y="12.065"/>
+<element name="U1" library="IC" package="DFN8" value="CN3065-1320040P1" x="32.0294" y="4.2418"/>
 </elements>
 <signals>
 </signals>

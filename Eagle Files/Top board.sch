@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="5" unitdist="mil" unit="mil" style="lines" multiple="1" display="no" altdistance="1" altunitdist="mil" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="no" active="no"/>
@@ -302,35 +302,6 @@ http://www.consonance-elec.com/pdf/%E6%8A%80%E6%9C%AF%E8%AF%B4%E6%98%8E%E4%B9%A6
 <hole x="2.159" y="1.397" drill="1.016"/>
 <rectangle x1="-4.572" y1="-3.81" x2="4.572" y2="3.81" layer="39" rot="R90"/>
 </package>
-<package name="2P-SMD-2.0-90D">
-<wire x1="-4" y1="3" x2="-3.4" y2="3" width="0.127" layer="21"/>
-<wire x1="-3.4" y1="3" x2="3.4" y2="3" width="0.127" layer="21"/>
-<wire x1="3.4" y1="3" x2="4" y2="3" width="0.127" layer="21"/>
-<wire x1="4" y1="3" x2="4" y2="-3" width="0.127" layer="21"/>
-<wire x1="4" y1="-3" x2="-4" y2="-3" width="0.127" layer="21"/>
-<wire x1="-4" y1="-3" x2="-4" y2="3" width="0.127" layer="21"/>
-<wire x1="-4" y1="3" x2="-4" y2="4.8" width="0.127" layer="21"/>
-<wire x1="-4" y1="4.8" x2="-3.4" y2="4.8" width="0.127" layer="21"/>
-<wire x1="-3.4" y1="4.8" x2="-3.4" y2="3" width="0.127" layer="21"/>
-<wire x1="3.4" y1="3" x2="3.4" y2="4.8" width="0.127" layer="21"/>
-<wire x1="3.4" y1="4.8" x2="4" y2="4.8" width="0.127" layer="21"/>
-<wire x1="4" y1="4.8" x2="4" y2="3" width="0.127" layer="21"/>
-<wire x1="-3.302" y1="4.826" x2="-3.302" y2="3.048" width="0.127" layer="39"/>
-<wire x1="-3.302" y1="3.048" x2="3.302" y2="3.048" width="0.127" layer="39"/>
-<wire x1="3.302" y1="3.048" x2="3.302" y2="4.826" width="0.127" layer="39"/>
-<wire x1="3.302" y1="4.826" x2="4.064" y2="4.826" width="0.127" layer="39"/>
-<wire x1="4.064" y1="4.826" x2="4.064" y2="-3.048" width="0.127" layer="39"/>
-<wire x1="4.064" y1="-3.048" x2="-4.064" y2="-3.048" width="0.127" layer="39"/>
-<wire x1="-4.064" y1="-3.048" x2="-4.064" y2="4.826" width="0.127" layer="39"/>
-<wire x1="-4.064" y1="4.826" x2="-3.302" y2="4.826" width="0.127" layer="39"/>
-<smd name="+" x="-1" y="4.953" dx="3.6" dy="1" layer="1" roundness="50" rot="R90"/>
-<smd name="-" x="1" y="4.953" dx="3.6" dy="1" layer="1" roundness="50" rot="R90"/>
-<smd name="4" x="-3.4" y="-2.181" dx="2.4" dy="2" layer="1" roundness="50" rot="R90"/>
-<smd name="3" x="3.4" y="-2.181" dx="2.4" dy="2" layer="1" roundness="50" rot="R90"/>
-<text x="-1.905" y="7.62" size="0.889" layer="25" ratio="11">&gt;NAME</text>
-<text x="-1.905" y="0" size="0.889" layer="27" ratio="11">&gt;VALUE</text>
-<text x="-0.762" y="-0.127" size="0.254" layer="33" ratio="10">&gt;NAME</text>
-</package>
 </packages>
 <symbols>
 <symbol name="USB">
@@ -357,22 +328,6 @@ http://www.consonance-elec.com/pdf/%E6%8A%80%E6%9C%AF%E8%AF%B4%E6%98%8E%E4%B9%A6
 <pin name="GND@2" x="-12.7" y="1.27" visible="pin" length="short"/>
 <pin name="GND@3" x="-12.7" y="-1.27" visible="pin" length="short"/>
 <pin name="GND@4" x="-12.7" y="-3.81" visible="pin" length="short"/>
-</symbol>
-<symbol name="JST-2P-SMD">
-<wire x1="-1.27" y1="-2.54" x2="-6.35" y2="-2.54" width="0.1524" layer="94"/>
-<wire x1="-6.35" y1="-2.54" x2="-6.35" y2="2.54" width="0.1524" layer="94"/>
-<wire x1="-6.35" y1="2.54" x2="-1.27" y2="2.54" width="0.1524" layer="94"/>
-<wire x1="-1.27" y1="2.54" x2="-1.27" y2="1.27" width="0.1524" layer="94"/>
-<wire x1="-1.27" y1="1.27" x2="-1.27" y2="-1.27" width="0.1524" layer="94"/>
-<wire x1="-1.27" y1="-1.27" x2="-1.27" y2="-2.54" width="0.1524" layer="94"/>
-<wire x1="0" y1="-1.27" x2="-1.27" y2="-1.27" width="0.1524" layer="94"/>
-<wire x1="0" y1="1.27" x2="-1.27" y2="1.27" width="0.1524" layer="94"/>
-<text x="-2.54" y="3.81" size="1.27" layer="96" ratio="10">&gt;VALUE</text>
-<text x="-10.16" y="3.81" size="1.27" layer="95" ratio="10">&gt;NAME</text>
-<pin name="1" x="2.54" y="1.27" visible="pad" length="short" rot="R180"/>
-<pin name="2" x="2.54" y="-1.27" visible="pad" length="short" rot="R180"/>
-<pin name="3" x="-3.81" y="-5.08" visible="off" length="short" rot="R90"/>
-<pin name="4" x="-3.81" y="5.08" visible="off" length="short" rot="R270"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -416,25 +371,6 @@ http://www.consonance-elec.com/pdf/%E6%8A%80%E6%9C%AF%E8%AF%B4%E6%98%8E%E4%B9%A6
 </device>
 </devices>
 </deviceset>
-<deviceset name="JST-2P-SMD" prefix="J" uservalue="yes">
-<description>2P-SMD-2.0-90D:320110026</description>
-<gates>
-<gate name="G$1" symbol="JST-2P-SMD" x="0" y="0"/>
-</gates>
-<devices>
-<device name="'2.0'" package="2P-SMD-2.0-90D">
-<connects>
-<connect gate="G$1" pin="1" pad="+"/>
-<connect gate="G$1" pin="2" pad="-"/>
-<connect gate="G$1" pin="3" pad="3"/>
-<connect gate="G$1" pin="4" pad="4"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
 </devicesets>
 </library>
 </libraries>
@@ -449,7 +385,6 @@ http://www.consonance-elec.com/pdf/%E6%8A%80%E6%9C%AF%E8%AF%B4%E6%98%8E%E4%B9%A6
 <parts>
 <part name="U1" library="IC" deviceset="CN3065" device="-1320040P1"/>
 <part name="J1" library="Connector" deviceset="MINI-USB-5P" device="-3400030P1"/>
-<part name="J2" library="Connector" deviceset="JST-2P-SMD" device="'2.0'"/>
 </parts>
 <sheets>
 <sheet>
@@ -458,7 +393,6 @@ http://www.consonance-elec.com/pdf/%E6%8A%80%E6%9C%AF%E8%AF%B4%E6%98%8E%E4%B9%A6
 <instances>
 <instance part="U1" gate="U" x="73.66" y="58.42"/>
 <instance part="J1" gate="USB" x="40.64" y="40.64"/>
-<instance part="J2" gate="G$1" x="78.74" y="22.86"/>
 </instances>
 <busses>
 </busses>
