@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="5" unitdist="mil" unit="mil" style="lines" multiple="1" display="no" altdistance="1" altunitdist="mil" altunit="mil"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="no" active="no"/>
@@ -373,6 +373,62 @@ http://www.consonance-elec.com/pdf/%E6%8A%80%E6%9C%AF%E8%AF%B4%E6%98%8E%E4%B9%A6
 </deviceset>
 </devicesets>
 </library>
+<library name="radiationbean">
+<packages>
+<package name="RD2007">
+<pad name="OUT" x="4" y="5.46" drill="1"/>
+<pad name="VCC" x="4" y="8" drill="1"/>
+<pad name="GND" x="4" y="10.54" drill="1"/>
+<wire x1="0" y1="0" x2="28" y2="0" width="0.127" layer="21"/>
+<wire x1="28" y1="0" x2="28" y2="16" width="0.127" layer="21"/>
+<wire x1="28" y1="16" x2="0" y2="16" width="0.127" layer="21"/>
+<wire x1="0" y1="16" x2="0" y2="0" width="0.127" layer="21"/>
+<wire x1="17" y1="14" x2="23" y2="14" width="0.127" layer="21"/>
+<wire x1="23" y1="14" x2="23" y2="2" width="0.127" layer="21"/>
+<wire x1="23" y1="2" x2="17" y2="2" width="0.127" layer="21"/>
+<wire x1="17" y1="2" x2="17" y2="14" width="0.127" layer="21"/>
+<text x="2" y="8" size="1.27" layer="51" rot="R90" align="center">RD2007</text>
+<text x="20" y="8" size="1.27" layer="51" rot="R90" align="center">Active
+Window</text>
+<text x="0" y="17" size="1.27" layer="25">&gt;Name</text>
+<text x="0" y="-2" size="1.27" layer="27">value</text>
+</package>
+</packages>
+<symbols>
+<symbol name="RD2007_SYM">
+<wire x1="0" y1="0" x2="0" y2="16" width="0.254" layer="94"/>
+<wire x1="0" y1="16" x2="28" y2="16" width="0.254" layer="94"/>
+<wire x1="28" y1="16" x2="28" y2="0" width="0.254" layer="94"/>
+<wire x1="28" y1="0" x2="0" y2="0" width="0.254" layer="94"/>
+<wire x1="17" y1="14" x2="17" y2="2" width="0.254" layer="94"/>
+<wire x1="17" y1="2" x2="23" y2="2" width="0.254" layer="94"/>
+<wire x1="23" y1="2" x2="23" y2="14" width="0.254" layer="94"/>
+<wire x1="23" y1="14" x2="17" y2="14" width="0.254" layer="94"/>
+<pin name="GND" x="10" y="0" visible="pin" length="middle" direction="pwr" rot="R270"/>
+<pin name="VCC" x="13" y="0" visible="pin" length="middle" direction="pwr" rot="R270"/>
+<pin name="OUT" x="16" y="0" visible="pin" length="middle" direction="out" rot="R270"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="RD2007">
+<gates>
+<gate name="G$1" symbol="RD2007_SYM" x="-12.7" y="-7.62"/>
+</gates>
+<devices>
+<device name="" package="RD2007">
+<connects>
+<connect gate="G$1" pin="GND" pad="GND"/>
+<connect gate="G$1" pin="OUT" pad="OUT"/>
+<connect gate="G$1" pin="VCC" pad="VCC"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -385,6 +441,7 @@ http://www.consonance-elec.com/pdf/%E6%8A%80%E6%9C%AF%E8%AF%B4%E6%98%8E%E4%B9%A6
 <parts>
 <part name="U1" library="IC" deviceset="CN3065" device="-1320040P1"/>
 <part name="J1" library="Connector" deviceset="MINI-USB-5P" device="-3400030P1"/>
+<part name="RD2007" library="radiationbean" deviceset="RD2007" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -393,6 +450,7 @@ http://www.consonance-elec.com/pdf/%E6%8A%80%E6%9C%AF%E8%AF%B4%E6%98%8E%E4%B9%A6
 <instances>
 <instance part="U1" gate="U" x="73.66" y="58.42"/>
 <instance part="J1" gate="USB" x="40.64" y="40.64"/>
+<instance part="RD2007" gate="G$1" x="35.56" y="60.96"/>
 </instances>
 <busses>
 </busses>
@@ -402,4 +460,10 @@ http://www.consonance-elec.com/pdf/%E6%8A%80%E6%9C%AF%E8%AF%B4%E6%98%8E%E4%B9%A6
 </sheets>
 </schematic>
 </drawing>
+<compatibility>
+<note version="6.3" minversion="6.2.2" severity="warning">
+Since Version 6.2.2 text objects can contain more than one line,
+which will not be processed correctly with this version.
+</note>
+</compatibility>
 </eagle>
