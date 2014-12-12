@@ -4709,14 +4709,14 @@ NS Package M08A</description>
 <wire x1="-2.4" y1="-1.4" x2="-2.4" y2="1.9" width="0.2032" layer="51"/>
 <wire x1="-2.4" y1="1.9" x2="2.4" y2="1.9" width="0.2032" layer="51"/>
 <wire x1="2.4" y1="-1.4" x2="-2.4" y2="-1.4" width="0.2032" layer="51"/>
-<smd name="SO" x="-0.635" y="-2.6" dx="0.6" dy="2.2" layer="1"/>
-<smd name="HOLD" x="-0.635" y="2.6" dx="0.6" dy="2.2" layer="1"/>
-<smd name="CS" x="-1.905" y="-2.6" dx="0.6" dy="2.2" layer="1"/>
-<smd name="WP" x="0.635" y="-2.6" dx="0.6" dy="2.2" layer="1"/>
+<smd name="A1" x="-0.635" y="-2.6" dx="0.6" dy="2.2" layer="1"/>
+<smd name="WP" x="-0.635" y="2.6" dx="0.6" dy="2.2" layer="1"/>
+<smd name="A0" x="-1.905" y="-2.6" dx="0.6" dy="2.2" layer="1"/>
+<smd name="A2" x="0.635" y="-2.6" dx="0.6" dy="2.2" layer="1"/>
 <smd name="GND" x="1.905" y="-2.6" dx="0.6" dy="2.2" layer="1"/>
 <smd name="VDD" x="-1.905" y="2.6" dx="0.6" dy="2.2" layer="1"/>
-<smd name="SCK" x="0.635" y="2.6" dx="0.6" dy="2.2" layer="1"/>
-<smd name="SI" x="1.905" y="2.6" dx="0.6" dy="2.2" layer="1"/>
+<smd name="SCL" x="0.635" y="2.6" dx="0.6" dy="2.2" layer="1"/>
+<smd name="SDA" x="1.905" y="2.6" dx="0.6" dy="2.2" layer="1"/>
 <text x="-2.667" y="-1.905" size="1.27" layer="25" rot="R90">&gt;NAME</text>
 <text x="3.937" y="-1.905" size="1.27" layer="27" rot="R90">&gt;VALUE</text>
 <rectangle x1="-2.15" y1="-3.1" x2="-1.66" y2="-2" layer="51"/>
@@ -4732,101 +4732,35 @@ NS Package M08A</description>
 <symbols>
 <symbol name="MB85RS64V_SYM">
 <rectangle x1="-5.08" y1="-7.62" x2="5.08" y2="7.62" layer="94"/>
-<pin name="CS" x="-10.16" y="5.08" length="middle" direction="in" function="dot"/>
-<pin name="SO" x="-10.16" y="2.54" length="middle" direction="out"/>
-<pin name="WP" x="-10.16" y="0" length="middle" direction="in" function="dot"/>
+<pin name="V0" x="-10.16" y="5.08" length="middle" direction="in"/>
+<pin name="A1" x="-10.16" y="2.54" length="middle" direction="in"/>
+<pin name="A2" x="-10.16" y="0" length="middle" direction="in"/>
 <pin name="GND" x="-10.16" y="-2.54" length="middle" direction="pwr"/>
-<pin name="SI" x="10.16" y="-2.54" length="middle" direction="in" rot="R180"/>
-<pin name="SCK" x="10.16" y="0" length="middle" direction="out" function="clk" rot="R180"/>
-<pin name="HOLD" x="10.16" y="2.54" length="middle" direction="in" function="dot" rot="R180"/>
+<pin name="SDA" x="10.16" y="-2.54" length="middle" rot="R180"/>
+<pin name="SCL" x="10.16" y="0" length="middle" direction="out" function="clk" rot="R180"/>
+<pin name="WP" x="10.16" y="2.54" length="middle" direction="in" function="dot" rot="R180"/>
 <pin name="VDD" x="10.16" y="5.08" length="middle" direction="pwr" rot="R180"/>
 </symbol>
 </symbols>
 <devicesets>
-<deviceset name="MB85RS64V">
+<deviceset name="MB85RC256V">
 <gates>
-<gate name="G$1" symbol="MB85RS64V_SYM" x="0" y="0"/>
+<gate name="FRAM" symbol="MB85RS64V_SYM" x="0" y="0"/>
 </gates>
 <devices>
-<device name="" package="SO08">
+<device name="MB85RC256V" package="SO08">
 <connects>
-<connect gate="G$1" pin="CS" pad="CS"/>
-<connect gate="G$1" pin="GND" pad="GND"/>
-<connect gate="G$1" pin="HOLD" pad="HOLD"/>
-<connect gate="G$1" pin="SCK" pad="SCK"/>
-<connect gate="G$1" pin="SI" pad="SI"/>
-<connect gate="G$1" pin="SO" pad="SO"/>
-<connect gate="G$1" pin="VDD" pad="VDD"/>
-<connect gate="G$1" pin="WP" pad="WP"/>
+<connect gate="FRAM" pin="A1" pad="A1"/>
+<connect gate="FRAM" pin="A2" pad="A2"/>
+<connect gate="FRAM" pin="GND" pad="GND"/>
+<connect gate="FRAM" pin="SCL" pad="SCL"/>
+<connect gate="FRAM" pin="SDA" pad="SDA"/>
+<connect gate="FRAM" pin="V0" pad="A0"/>
+<connect gate="FRAM" pin="VDD" pad="VDD"/>
+<connect gate="FRAM" pin="WP" pad="WP"/>
 </connects>
 <technologies>
 <technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
-<library name="SparkFun-Resistors">
-<description>&lt;h3&gt;SparkFun Electronics' preferred foot prints&lt;/h3&gt;
-In this library you'll find resistors, capacitors, inductors, test points, jumper pads, etc.&lt;br&gt;&lt;br&gt;
-We've spent an enormous amount of time creating and checking these footprints and parts, but it is the end user's responsibility to ensure correctness and suitablity for a given componet or application. If you enjoy using this library, please buy one of our products at www.sparkfun.com.
-&lt;br&gt;&lt;br&gt;
-&lt;b&gt;Licensing:&lt;/b&gt; Creative Commons ShareAlike 4.0 International - https://creativecommons.org/licenses/by-sa/4.0/ 
-&lt;br&gt;&lt;br&gt;
-You are welcome to use this library for commercial purposes. For attribution, we ask that when you begin to sell your device using our footprint, you email us with a link to the product being sold. We want bragging rights that we helped (in a very small part) to create your 8th world wonder. We would like the opportunity to feature your device on our homepage.</description>
-<packages>
-<package name="0603-RES">
-<wire x1="-1.473" y1="0.983" x2="1.473" y2="0.983" width="0.0508" layer="39"/>
-<wire x1="1.473" y1="0.983" x2="1.473" y2="-0.983" width="0.0508" layer="39"/>
-<wire x1="1.473" y1="-0.983" x2="-1.473" y2="-0.983" width="0.0508" layer="39"/>
-<wire x1="-1.473" y1="-0.983" x2="-1.473" y2="0.983" width="0.0508" layer="39"/>
-<wire x1="-0.356" y1="0.432" x2="0.356" y2="0.432" width="0.1016" layer="51"/>
-<wire x1="-0.356" y1="-0.419" x2="0.356" y2="-0.419" width="0.1016" layer="51"/>
-<smd name="1" x="-0.85" y="0" dx="1.1" dy="1" layer="1"/>
-<smd name="2" x="0.85" y="0" dx="1.1" dy="1" layer="1"/>
-<text x="-0.889" y="0.762" size="0.4064" layer="25" font="vector">&gt;NAME</text>
-<text x="-1.016" y="-1.143" size="0.4064" layer="27" font="vector">&gt;VALUE</text>
-<rectangle x1="-0.8382" y1="-0.4699" x2="-0.3381" y2="0.4801" layer="51"/>
-<rectangle x1="0.3302" y1="-0.4699" x2="0.8303" y2="0.4801" layer="51"/>
-<rectangle x1="-0.1999" y1="-0.3" x2="0.1999" y2="0.3" layer="35"/>
-<rectangle x1="-0.2286" y1="-0.381" x2="0.2286" y2="0.381" layer="21"/>
-</package>
-</packages>
-<symbols>
-<symbol name="RESISTOR">
-<wire x1="-2.54" y1="0" x2="-2.159" y2="1.016" width="0.1524" layer="94"/>
-<wire x1="-2.159" y1="1.016" x2="-1.524" y2="-1.016" width="0.1524" layer="94"/>
-<wire x1="-1.524" y1="-1.016" x2="-0.889" y2="1.016" width="0.1524" layer="94"/>
-<wire x1="-0.889" y1="1.016" x2="-0.254" y2="-1.016" width="0.1524" layer="94"/>
-<wire x1="-0.254" y1="-1.016" x2="0.381" y2="1.016" width="0.1524" layer="94"/>
-<wire x1="0.381" y1="1.016" x2="1.016" y2="-1.016" width="0.1524" layer="94"/>
-<wire x1="1.016" y1="-1.016" x2="1.651" y2="1.016" width="0.1524" layer="94"/>
-<wire x1="1.651" y1="1.016" x2="2.286" y2="-1.016" width="0.1524" layer="94"/>
-<wire x1="2.286" y1="-1.016" x2="2.54" y2="0" width="0.1524" layer="94"/>
-<text x="-3.81" y="1.4986" size="1.778" layer="95">&gt;NAME</text>
-<text x="-3.81" y="-3.302" size="1.778" layer="96">&gt;VALUE</text>
-<pin name="2" x="5.08" y="0" visible="off" length="short" direction="pas" swaplevel="1" rot="R180"/>
-<pin name="1" x="-5.08" y="0" visible="off" length="short" direction="pas" swaplevel="1"/>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="10KOHM-1/10W-1%(0603)" prefix="R" uservalue="yes">
-<description>RES-00824</description>
-<gates>
-<gate name="G$1" symbol="RESISTOR" x="0" y="0"/>
-</gates>
-<devices>
-<device name="0603" package="0603-RES">
-<connects>
-<connect gate="G$1" pin="1" pad="1"/>
-<connect gate="G$1" pin="2" pad="2"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="PROD_ID" value="RES-00824"/>
-<attribute name="VALUE" value="10K" constant="no"/>
-</technology>
 </technologies>
 </device>
 </devices>
@@ -5059,8 +4993,7 @@ CONN-08352</description>
 <part name="VCC" library="BLEduino Bean" deviceset="PROTO_POINT" device=""/>
 <part name="GND@3" library="BLEduino Bean" deviceset="PROTO_POINT" device=""/>
 <part name="RESET" library="BLEduino Bean" deviceset="PROTO_POINT" device=""/>
-<part name="FRAM" library="radiationbean" deviceset="MB85RS64V" device=""/>
-<part name="R1" library="SparkFun-Resistors" deviceset="10KOHM-1/10W-1%(0603)" device="0603" value="10K"/>
+<part name="FRAM" library="radiationbean" deviceset="MB85RC256V" device="MB85RC256V" value="MB85RC256V"/>
 <part name="C1" library="SparkFun-Capacitors" deviceset="10UF-16V-10%(TANT)" device="" value="10uF"/>
 <part name="GND1" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="SUPPLY1" library="SparkFun-Aesthetics" deviceset="VCC" device=""/>
@@ -5089,8 +5022,7 @@ CONN-08352</description>
 <instance part="VCC" gate="G$1" x="149.86" y="-121.92"/>
 <instance part="GND@3" gate="G$1" x="149.86" y="-129.54"/>
 <instance part="RESET" gate="G$1" x="152.4" y="-83.82"/>
-<instance part="FRAM" gate="G$1" x="200.66" y="-53.34"/>
-<instance part="R1" gate="G$1" x="220.98" y="-43.18"/>
+<instance part="FRAM" gate="FRAM" x="200.66" y="-53.34"/>
 <instance part="C1" gate="G$1" x="200.66" y="-78.74"/>
 <instance part="GND1" gate="1" x="200.66" y="-88.9"/>
 <instance part="SUPPLY1" gate="G$1" x="200.66" y="-73.66"/>
@@ -5119,7 +5051,7 @@ CONN-08352</description>
 <label x="144.78" y="-129.54" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="FRAM" gate="G$1" pin="GND"/>
+<pinref part="FRAM" gate="FRAM" pin="GND"/>
 <wire x1="190.5" y1="-55.88" x2="187.96" y2="-55.88" width="0.1524" layer="91"/>
 <label x="185.42" y="-58.42" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -5157,21 +5089,13 @@ CONN-08352</description>
 <wire x1="149.86" y1="-20.32" x2="144.78" y2="-20.32" width="0.1524" layer="91"/>
 <label x="142.24" y="-20.32" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="FRAM" gate="G$1" pin="SCK"/>
-<wire x1="210.82" y1="-53.34" x2="215.9" y2="-53.34" width="0.1524" layer="91"/>
-<label x="215.9" y="-53.34" size="1.778" layer="95"/>
-</segment>
 </net>
-<net name="HOLD" class="0">
+<net name="WP" class="0">
 <segment>
-<pinref part="FRAM" gate="G$1" pin="HOLD"/>
+<pinref part="FRAM" gate="FRAM" pin="WP"/>
 <wire x1="210.82" y1="-50.8" x2="213.36" y2="-50.8" width="0.1524" layer="91"/>
 <wire x1="213.36" y1="-50.8" x2="215.9" y2="-48.26" width="0.1524" layer="91"/>
 <label x="218.44" y="-48.26" size="1.778" layer="95" xref="yes"/>
-<pinref part="R1" gate="G$1" pin="2"/>
-<wire x1="215.9" y1="-48.26" x2="226.06" y2="-48.26" width="0.1524" layer="91"/>
-<wire x1="226.06" y1="-48.26" x2="226.06" y2="-43.18" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="VCC" class="0">
@@ -5181,12 +5105,10 @@ CONN-08352</description>
 <label x="144.78" y="-121.92" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="FRAM" gate="G$1" pin="VDD"/>
+<pinref part="FRAM" gate="FRAM" pin="VDD"/>
 <wire x1="210.82" y1="-48.26" x2="213.36" y2="-48.26" width="0.1524" layer="91"/>
 <wire x1="213.36" y1="-48.26" x2="215.9" y2="-45.72" width="0.1524" layer="91"/>
 <label x="218.44" y="-45.72" size="1.778" layer="95" xref="yes"/>
-<pinref part="R1" gate="G$1" pin="1"/>
-<wire x1="215.9" y1="-45.72" x2="215.9" y2="-43.18" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="C1" gate="G$1" pin="+"/>
@@ -5213,20 +5135,6 @@ CONN-08352</description>
 <label x="142.24" y="-83.82" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="N$5" class="0">
-<segment>
-<pinref part="A0" gate="G$1" pin="P$1"/>
-<wire x1="149.86" y1="-73.66" x2="144.78" y2="-73.66" width="0.1524" layer="91"/>
-<label x="142.24" y="-73.66" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
-<net name="N$6" class="0">
-<segment>
-<pinref part="A1" gate="G$1" pin="P$1"/>
-<wire x1="149.86" y1="-66.04" x2="144.78" y2="-66.04" width="0.1524" layer="91"/>
-<label x="142.24" y="-66.04" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
 <net name="N$7" class="0">
 <segment>
 <wire x1="149.86" y1="-58.42" x2="144.78" y2="-58.42" width="0.1524" layer="91"/>
@@ -5236,11 +5144,6 @@ CONN-08352</description>
 </net>
 <net name="CS" class="0">
 <segment>
-<pinref part="FRAM" gate="G$1" pin="CS"/>
-<wire x1="190.5" y1="-48.26" x2="187.96" y2="-48.26" width="0.1524" layer="91"/>
-<label x="185.42" y="-43.18" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-<segment>
 <pinref part="2" gate="G$1" pin="P$1"/>
 <wire x1="149.86" y1="-43.18" x2="144.78" y2="-43.18" width="0.1524" layer="91"/>
 <label x="142.24" y="-43.18" size="1.778" layer="95" rot="R180" xref="yes"/>
@@ -5248,33 +5151,61 @@ CONN-08352</description>
 </net>
 <net name="MISO" class="0">
 <segment>
-<pinref part="FRAM" gate="G$1" pin="SO"/>
-<wire x1="190.5" y1="-50.8" x2="187.96" y2="-50.8" width="0.1524" layer="91"/>
-<label x="185.42" y="-48.26" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-<segment>
 <pinref part="4" gate="G$1" pin="P$1"/>
 <wire x1="149.86" y1="-27.94" x2="144.78" y2="-27.94" width="0.1524" layer="91"/>
 <label x="144.78" y="-27.94" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="WP" class="0">
+<net name="A2" class="0">
 <segment>
-<pinref part="FRAM" gate="G$1" pin="WP"/>
+<pinref part="FRAM" gate="FRAM" pin="A2"/>
 <wire x1="190.5" y1="-53.34" x2="187.96" y2="-53.34" width="0.1524" layer="91"/>
 <label x="185.42" y="-53.34" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="MOSI" class="0">
 <segment>
-<pinref part="FRAM" gate="G$1" pin="SI"/>
+<pinref part="3" gate="G$1" pin="P$1"/>
+<wire x1="149.86" y1="-35.56" x2="147.32" y2="-35.56" width="0.1524" layer="91"/>
+<label x="144.78" y="-35.56" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="A0" class="0">
+<segment>
+<pinref part="FRAM" gate="FRAM" pin="V0"/>
+<wire x1="190.5" y1="-48.26" x2="187.96" y2="-48.26" width="0.1524" layer="91"/>
+<label x="185.42" y="-43.18" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="A1" class="0">
+<segment>
+<pinref part="FRAM" gate="FRAM" pin="A1"/>
+<wire x1="190.5" y1="-50.8" x2="187.96" y2="-50.8" width="0.1524" layer="91"/>
+<label x="185.42" y="-48.26" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SCL" class="0">
+<segment>
+<pinref part="FRAM" gate="FRAM" pin="SCL"/>
+<wire x1="210.82" y1="-53.34" x2="215.9" y2="-53.34" width="0.1524" layer="91"/>
+<label x="215.9" y="-53.34" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="A1" gate="G$1" pin="P$1"/>
+<wire x1="149.86" y1="-66.04" x2="144.78" y2="-66.04" width="0.1524" layer="91"/>
+<label x="142.24" y="-66.04" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SDA" class="0">
+<segment>
+<pinref part="FRAM" gate="FRAM" pin="SDA"/>
 <wire x1="210.82" y1="-55.88" x2="213.36" y2="-55.88" width="0.1524" layer="91"/>
 <label x="213.36" y="-58.42" size="1.778" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="3" gate="G$1" pin="P$1"/>
-<wire x1="149.86" y1="-35.56" x2="147.32" y2="-35.56" width="0.1524" layer="91"/>
-<label x="144.78" y="-35.56" size="1.778" layer="95" rot="R180" xref="yes"/>
+<pinref part="A0" gate="G$1" pin="P$1"/>
+<wire x1="149.86" y1="-73.66" x2="144.78" y2="-73.66" width="0.1524" layer="91"/>
+<label x="142.24" y="-73.66" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 </nets>
@@ -5283,12 +5214,20 @@ CONN-08352</description>
 <errors>
 <approved hash="104,1,210.82,-48.26,FRAM,VDD,VCC,,,"/>
 <approved hash="106,1,276.86,-73.66,4V,,,,,"/>
+<approved hash="209,1,190.5,-48.26,A0,,,,,"/>
+<approved hash="106,1,190.5,-48.26,A0,,,,,"/>
+<approved hash="209,1,190.5,-50.8,A1,,,,,"/>
+<approved hash="106,1,190.5,-50.8,A1,,,,,"/>
+<approved hash="209,1,190.5,-53.34,A2,,,,,"/>
+<approved hash="106,1,190.5,-53.34,A2,,,,,"/>
+<approved hash="106,1,149.86,-20.32,CLK,,,,,"/>
+<approved hash="106,1,149.86,-43.18,CS,,,,,"/>
+<approved hash="106,1,149.86,-27.94,MISO,,,,,"/>
+<approved hash="106,1,149.86,-35.56,MOSI,,,,,"/>
 <approved hash="106,1,149.86,-83.82,N$4,,,,,"/>
-<approved hash="106,1,149.86,-73.66,N$5,,,,,"/>
-<approved hash="106,1,149.86,-66.04,N$6,,,,,"/>
 <approved hash="106,1,149.86,-58.42,N$7,,,,,"/>
-<approved hash="209,1,190.5,-53.34,WP,,,,,"/>
-<approved hash="106,1,190.5,-53.34,WP,,,,,"/>
+<approved hash="209,1,210.82,-50.8,WP,,,,,"/>
+<approved hash="106,1,210.82,-50.8,WP,,,,,"/>
 <approved hash="113,1,224.79,-76.7927,J1,,,,,"/>
 </errors>
 </schematic>
