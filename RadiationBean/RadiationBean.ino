@@ -1,29 +1,25 @@
+#include "rad_fram.h"
 #include "rad_bean_config.h"
+#include "radBean.h"
 #include <Time.h>
+#include <Wire.h>
+#include "Adafruit_FRAM_I2C.h"
 
 
-using namespace rad;
+//using namespace rad;
 
-radData testUnion;
+radData_t testUnion;
 
 void setup(){
-Serial.begin(57600);
-Serial.println(F("Serial Test"));
-testUnion.message.header.type = 22;
-testUnion.message.header.length = 33;
-testUnion.message.refTime = 123;
-testUnion.message.jumpInterval = ONE_MIN;
-for(int i = 0; i < PACKET_BODY_SIZE; i++){
-  testUnion.message.datapoint[i] = i;
-}
+    delay(10000);
+    Serial.begin(115200);
+    Serial.println(F("Serial Test"));
+    RadBean.begin();
+
 }
 
 
 void loop(){
-  for(int i = 0; i <PACKET_BODY_SIZE; i++ ){
-    Serial.println(testUnion.message.datapoint[i]);
-    delay(500);
-  }
-  delay(5000);
+
 
 }

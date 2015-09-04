@@ -1,13 +1,14 @@
 #pragma once
 
 #include <Time.h>
-
+#include "Arduino.h"
 #define MAX_PACKET_SIZE 64
+#define CONFIG_HEADER_SIZE 32
 #define PACKET_HEADER_SIZE 2
 #define PACKET_BODY_SIZE MAX_PACKET_SIZE - PACKET_HEADER_SIZE - sizeof(time_t) - sizeof(jumpSize_t)
 
 
-namespace rad{
+//namespace rad{
 
 typedef enum jumpSize_e{
   ONE_MIN     =    60 ,
@@ -25,6 +26,26 @@ typedef struct  header_t{
 
 }header_t;
 
+
+typedef union  {
+
+  struct{
+      uint8_t
+        H_Offset;
+
+        uint16_t
+            version ;
+
+        uint32_t
+            minAddr:18 ,
+            maxAddr:18 ;
+
+  };
+
+uint8_t packet[ CONFIG_HEADER_SIZE ] ;
+
+}radConfig_t;
+
 typedef union  {
 
   struct{
@@ -37,6 +58,6 @@ typedef union  {
 
 uint8_t packet[ MAX_PACKET_SIZE ] ;
 
-}radData;
+}radData_t;
 
-};
+//};
