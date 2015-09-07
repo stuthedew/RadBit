@@ -1,6 +1,6 @@
 #pragma once
 
-#include "rad_bean_config.h"
+#include "RadBean_config.h"
 #include <Wire.h>
 #include "Adafruit_FRAM_I2C.h"
 
@@ -17,7 +17,7 @@ public:
         getPacket( radData_t* ),
         writePacket( radConfig_t*),
         writePacket( radData_t* );
-        
+
 
 
 

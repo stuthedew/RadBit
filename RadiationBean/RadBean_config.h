@@ -8,8 +8,8 @@
 #define MAX_ADDR 2
 
 #include "Arduino.h"
-#include "rad_data.h"
-#include "rad_fram.h"
+#include "RadData.h"
+#include "RadFram.h"
 #include <Time.h>
 
 //namespace rad{

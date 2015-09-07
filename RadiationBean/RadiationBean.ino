@@ -1,5 +1,5 @@
-#include "rad_fram.h"
-#include "rad_bean_config.h"
+#include "RadFram.h"
+#include "RadBean_config.h"
 #include "radBean.h"
 #include <Time.h>
 #include <Wire.h>

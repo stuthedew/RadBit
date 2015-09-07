@@ -1,5 +1,5 @@
 #pragma once
-#include "rad_bean_config.h"
+#include "RadBean_config.h"
 
 //class RadFram;
 //namespace rad{
