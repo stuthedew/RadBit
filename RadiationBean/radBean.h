@@ -3,10 +3,10 @@
 #include "RadBean_config.h"
 #include "RadFram.h"
 
-//const PROGMEM radConfig_t _defaultConfig[];
 
-//class RadBeanClass:public BeanClass{
-class RadBeanClass{
+
+//class RadBeanClass:public BeanClass{  // For use with Lightblue bean
+class RadBeanClass{     //  For testing with uno
 public:
   RadBeanClass();
 

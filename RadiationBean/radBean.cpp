@@ -16,6 +16,8 @@ RadBeanClass::RadBeanClass():_fram(){
 
 void RadBeanClass::begin( void ){
     _fram.begin();
+
+    //Data packet Test
     randomSeed(6);
     radData_t testData;
 
@@ -24,26 +26,42 @@ void RadBeanClass::begin( void ){
     for(int i = 0; i< PACKET_BODY_SIZE; i++){
     testData.data[i] = random() % 255;
 }
-
 for(int i = 0; i< MAX_PACKET_SIZE; i++){
     Serial.print(testData.packet[i], HEX);
     Serial.print(F(" "));
 }
 Serial.println();
-    radConfig_t tempConfig;
-    memcpy_P(&tempConfig, &_flashConfig, sizeof(radConfig_t));
+//Data packet test
+
+/*****************************Initialize configuration**********************/
+
+/*
+//  Compare Firmware versions in PROGREM and FRAM.
+    1. If PROGMEM vesion == FRAM then no firmware updates and use config from FRAM
+    2. Else PROGMEM version != FRAM then inititialize FRAM with default config
+
+*/
+
+    memcpy_P(&_config, &_flashConfig, sizeof(radConfig_t)); //Get PROGMEM Firmware version
+
     Serial.print(F("Flash Version: "));
-    Serial.println(tempConfig.version);
-    if(tempConfig.version == _fram.version()){
-        _fram.getFramConfig(&_config);
+    Serial.println(_config.version);
+
+//  Compare Firmware versions in PROGREM and FRAM.
+    if(_config.version == _fram.version()){ //  no firmware updates
+        _fram.getFramConfig(&_config);      // use FRAM config
         Serial.println(F("Get Fram"));
     }
     else{
-        Serial.println(F("Set Fram"));
-        memcpy(&_config, &tempConfig, sizeof(radConfig_t));
-        _fram.setFramConfig(&_config);
-
+        Serial.println(F("Set Fram"));  //  PROGMEM version != FRAM version (Firmware update)
+        _fram.setFramConfig(&_config);  //  re-initilize FRAM with default config
     }
+    radConfig_t* ptr1 = &_config;
+    uint8_t delta = _fram.memcmp_F(ptr1->packet, 0, 20);
+    Serial.print(F("Fram and PROGMEM comparison: "));
+    Serial.println(delta);
+
+
 }
 
 void RadBeanClass::configDump( void ){
