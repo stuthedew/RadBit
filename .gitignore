@@ -90,9 +90,14 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-#Bittorrent sync files
-.bts
+
 
 Eagle Files/Top board Full.pdf
 
 Eagle Files/eagle.epf
+
+Eagle Files/adafruit.lbr
+#Bittorrent sync files
+*.bts
+
+*.epf
