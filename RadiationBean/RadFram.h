@@ -1,10 +1,11 @@
 #pragma once
-
-#include "RadBean_config.h"
+#include "Arduino.h"
 #include <Wire.h>
 #include "Adafruit_FRAM_I2C.h"
+#include "RadData.h"
+#include "RadBean_config.h"
 
-//namespace rad{
+
 
 class RadFram{
 
@@ -12,19 +13,21 @@ public:
     RadFram();
 
     void
-        begin( void ) ,
-        getPacket( radConfig_t*),
-        getPacket( radData_t* ),
-        writePacket( radConfig_t*),
-        writePacket( radData_t* );
+        begin( void ),
+        framcpy(uint8_t *b, uint16_t index, uint16_t size),
+        framset(uint8_t *b, uint16_t index, uint16_t size);
 
+    uint16_t
+        version( void );
 
+    void
+        getFramConfig(radConfig_t*);
 
+    void
+        setFramConfig(radConfig_t*);
 
 private:
-    Adafruit_FRAM_I2C _fram;
 
+    Adafruit_FRAM_I2C
+        _fram;
 };
-
-
-//};

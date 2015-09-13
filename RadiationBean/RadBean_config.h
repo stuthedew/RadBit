@@ -1,15 +1,15 @@
 #pragma once
 
-#define RAD_VERSION 0x01
-#define HEADER_OFFSET 20
+#define RAD_VERSION 1
+#define HEADER_OFFSET 30
 
-#define MIN_ADDR 1
+#define HEAD 1
 
-#define MAX_ADDR 2
+#define TAIL 1
 
 #include "Arduino.h"
 #include "RadData.h"
-#include "RadFram.h"
+#include "Adafruit_FRAM_I2C.h"
 #include <Time.h>
 
 //namespace rad{

@@ -1,11 +1,12 @@
 #pragma once
+#include "Arduino.h"
 #include "RadBean_config.h"
+#include "RadFram.h"
 
-//class RadFram;
-//namespace rad{
+//const PROGMEM radConfig_t _defaultConfig[];
 
-class RadBeanClass :public BeanClass{
-
+//class RadBeanClass:public BeanClass{
+class RadBeanClass{
 public:
   RadBeanClass();
 
@@ -15,15 +16,13 @@ public:
 
 
 private:
-    RadFram _radFram;
 
     radConfig_t _config;
-    radConfig_t _default;
 
 
+RadFram
+    _fram;
 
 };
 
 extern RadBeanClass RadBean;
-
-//};
