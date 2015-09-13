@@ -101,3 +101,5 @@ Eagle Files/adafruit.lbr
 *.bts
 
 *.epf
+
+~$*

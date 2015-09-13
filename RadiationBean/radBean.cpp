@@ -16,6 +16,20 @@ RadBeanClass::RadBeanClass():_fram(){
 
 void RadBeanClass::begin( void ){
     _fram.begin();
+    randomSeed(6);
+    radData_t testData;
+
+    testData.header.refTime=1442175281;
+    testData.header.jmptime = ONE_SEC;
+    for(int i = 0; i< PACKET_BODY_SIZE; i++){
+    testData.data[i] = random() % 255;
+}
+
+for(int i = 0; i< MAX_PACKET_SIZE; i++){
+    Serial.print(testData.packet[i], HEX);
+    Serial.print(F(" "));
+}
+Serial.println();
     radConfig_t tempConfig;
     memcpy_P(&tempConfig, &_flashConfig, sizeof(radConfig_t));
     Serial.print(F("Flash Version: "));

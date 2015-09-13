@@ -14,8 +14,8 @@ public:
 
     void
         begin( void ),
-        framcpy(uint8_t *b, uint16_t index, uint16_t size),
-        framset(uint8_t *b, uint16_t index, uint16_t size);
+        memcpy_F(uint8_t *b, uint16_t index, uint16_t size),
+        memset_F(uint8_t *b, uint16_t index, uint16_t size);
 
     uint16_t
         version( void );
