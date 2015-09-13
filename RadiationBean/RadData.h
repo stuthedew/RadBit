@@ -29,6 +29,9 @@ uint8_t packet[ CONFIG_HEADER_SIZE ] ;
 
 }radConfig_t;
 
+
+
+
 typedef enum {
     ONE_SEC=0,
     THIRTY_SEC,
