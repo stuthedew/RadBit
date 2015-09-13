@@ -19,18 +19,28 @@ uint16_t RadFram::version( void ){
 }
 
 
-void RadFram::memcpy_F(uint8_t* b, uint16_t index, uint16_t size){
+void RadFram::memcpy_F(uint8_t* b, uint16_t FRAM_index, uint16_t size){
     for(uint16_t i = 0; i < size; i++){
-        *b = _fram.read8(i + index);
+        *b = _fram.read8(i + FRAM_index);
         b++;
     }
 }
 
-void RadFram::memset_F(uint8_t* b, uint16_t index, uint16_t size){
+void RadFram::memset_F(uint8_t* b, uint16_t FRAM_index, uint16_t size){
     for(uint16_t i = 0; i < size; i++){
-        _fram.write8(i + index, *b);
+        _fram.write8(i + FRAM_index, *b);
         b++;
     }
+}
+
+uint16_t RadFram::memcmp_F(uint8_t* b, uint16_t FRAM_index, uint16_t size){
+    uint16_t delta = 0;
+    for(uint16_t i = 0; i < size; i++){
+        if(*b++ != _fram.read8(i + FRAM_index)){
+            delta++;
+        }
+    }
+    return delta;
 }
 
 void RadFram::getFramConfig( radConfig_t* c ){

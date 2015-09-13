@@ -14,17 +14,17 @@ public:
 
     void
         begin( void ),
-        memcpy_F(uint8_t *b, uint16_t index, uint16_t size),
-        memset_F(uint8_t *b, uint16_t index, uint16_t size);
+        getFramConfig(radConfig_t*),
+        setFramConfig(radConfig_t*);
 
     uint16_t
         version( void );
 
     void
-        getFramConfig(radConfig_t*);
-
-    void
-        setFramConfig(radConfig_t*);
+        memcpy_F(uint8_t *b, uint16_t index, uint16_t size),    //Fram memcpy
+        memset_F(uint8_t *b, uint16_t index, uint16_t size);    //Fram memset
+    uint16_t
+        memcmp_F(uint8_t *b, uint16_t index, uint16_t size);
 
 private:
 
