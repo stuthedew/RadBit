@@ -7,10 +7,6 @@
 #define PACKET_HEADER_SIZE 5
 #define PACKET_BODY_SIZE MAX_PACKET_SIZE - PACKET_HEADER_SIZE
 
-
-//namespace rad{
-
-
 typedef union  {
 
   struct{
