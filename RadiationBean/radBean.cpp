@@ -58,9 +58,10 @@ Serial.println();
     }
     radConfig_t* ptr1 = &_config;
     uint8_t delta = _fram.memcmp_F(ptr1->packet, 0, 20);
+    /*
     Serial.print(F("Fram and PROGMEM comparison: "));
     Serial.println(delta);
-
+*/
 
 }
 

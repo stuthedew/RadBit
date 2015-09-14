@@ -5,8 +5,8 @@
 
 
 
-//class RadBeanClass:public BeanClass{  // For use with Lightblue bean
-class RadBeanClass{     //  For testing with uno
+class RadBeanClass:public BeanClass{  // For use with Lightblue bean
+//class RadBeanClass{     //  For testing with uno
 public:
   RadBeanClass();
 
