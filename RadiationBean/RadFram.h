@@ -15,7 +15,8 @@ public:
     void
         begin( void ),
         getFramConfig(radConfig_t*),
-        setFramConfig(radConfig_t*);
+        setFramConfig(radConfig_t*),
+        put8(uint16_t index, uint8_t value);
 
     uint16_t
         version( void );

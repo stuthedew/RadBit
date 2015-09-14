@@ -18,6 +18,11 @@ uint16_t RadFram::version( void ){
 
 }
 
+inline void RadFram::put8( uint16_t index, uint8_t value ){
+    if(value != _fram.read8(index)){
+        _fram.write8(index, value);
+    }
+}
 
 void RadFram::memcpy_F(uint8_t* b, uint16_t FRAM_index, uint16_t size){
     for(uint16_t i = 0; i < size; i++){
@@ -28,7 +33,7 @@ void RadFram::memcpy_F(uint8_t* b, uint16_t FRAM_index, uint16_t size){
 
 void RadFram::memset_F(uint8_t* b, uint16_t FRAM_index, uint16_t size){
     for(uint16_t i = 0; i < size; i++){
-        _fram.write8(i + FRAM_index, *b);
+        put8(i + FRAM_index, *b);
         b++;
     }
 }
