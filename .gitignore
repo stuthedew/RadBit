@@ -103,3 +103,7 @@ Eagle Files/adafruit.lbr
 *.epf
 
 ~$*
+
+*.btsc
+
+
