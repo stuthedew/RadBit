@@ -107,3 +107,6 @@ Eagle Files/adafruit.lbr
 *.btsc
 
 
+iOS App/RadBean Playground.playground
+
+*.xc*
