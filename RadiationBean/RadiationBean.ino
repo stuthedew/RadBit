@@ -9,6 +9,8 @@ volatile boolean countFlag = 0;
 
 radConfig_t testUnion;
 
+
+/*
 void setup(){
     //delay(10000);
     Serial.begin(115200);
@@ -48,3 +50,4 @@ void setCountFlag(){
     }
     Bean.attachChangeInterrupt(radPin, setCountFlag);
 }
+*/
