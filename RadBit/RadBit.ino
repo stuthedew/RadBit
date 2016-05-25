@@ -1,8 +1,11 @@
 
 #include "RadBit.h"
+#include "RadLED.h"
 #include <Time.h>
 #include <Wire.h>
 #include "Adafruit_FRAM_I2C.h"
+
+RadLED led;
 
 
 void begin(){
@@ -17,7 +20,8 @@ void begin(){
 
     //TODO FRAM
 
-    //TODO LED
+    //LED
+    led.begin();
 
     //TODO Power Manegment
 
@@ -32,5 +36,7 @@ begin();
 
 
 void loop(){
+    led.blink(1000, 3);
+    delay(4000);
 
 }
