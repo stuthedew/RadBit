@@ -2,7 +2,7 @@
 #ifndef __RADLED_H
 #define __RADLED_H
 #include "RadBit.h"
-#include "Arduino.h"
+
 
 class RadLED {
 public:
