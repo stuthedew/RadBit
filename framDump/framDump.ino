@@ -31,25 +31,27 @@ void loop() {
 }
 
 void dumpData(){
-    int startPos = 428;
     //radHead.setPos(Bean.readScratchNumber(3));
     //radTail.setPos(Bean.readScratchNumber(4));
-    radHead.setPos(startPos);
-    radTail.setPos(501);
-    int i = startPos;
-    while (radHead.getPos() < radTail.getPos()) {
+    radHead.setPos(0);
+    radTail.setPos(700);
+    int i = 0;
+    while (Bean.readScratchNumber(5) == 0xBB && radHead.getPos() < radTail.getPos()) {
       raw_data_t t;
       getNextData(&t);
 
       Bean.setScratchNumber(1, t.count);
       Bean.setScratchNumber(2, t.eventTime);
       Serial.print(i++);
+      
       Serial.print(F(","));
+      
       Serial.print(t.eventTime-60);
+      
       Serial.print(F(","));
       Serial.println(t.count);
-      
-      //Bean.setScratchNumber(5, 0xBB);
+      delay(10);
+      Bean.setScratchNumber(5, 0xBB);
       
       const long timeOut = 30000;
       long startTime = millis();

@@ -55,7 +55,7 @@ int RadItr::decrement(){
 
 int RadItr::getPos()const{
 
-    return _position;
+    return _position/_dataSz;
 }
 
 

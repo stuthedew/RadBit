@@ -11,7 +11,12 @@
 
 RTC_DS3231 rtc;
 
+const uint8_t timeOutCode = 0xDD;
+const uint8_t moreDataCode = 0xCC;
+const uint8_t endOfDataCode = 0xEE;
+
 time_t countInterval = 60000;
+//time_t countInterval = 10000;
 
 
 RadFram radFram;
@@ -87,6 +92,8 @@ void begin() {
     Bean.setScratchNumber(i, 0);
   }
 
+  Bean.setScratchNumber(5, 0xAF);
+
 
   //Radiation Sensor
 
@@ -120,7 +127,9 @@ void loop() {
     blinkBeanRed();
     radFlag = 0;
   }
-  dumpDataFunc();
+   if (Bean.readScratchNumber(5) == 0xBB) {
+    dumpData();
+ } 
   scheduler.run();
   delay(5);
 
@@ -155,39 +164,49 @@ void countFunc() {
   countTask.enable();
 }
 
-void dumpDataFunc(){
-    if(Bean.readScratchNumber(5) == 0xAA){
+RadItr tempHead(sizeof(raw_data_t), 65536);
+void dumpData(){
+    int startPos = 0;
+    
+    RadItr tempTail(sizeof(raw_data_t), 65536);
+    tempHead.setPos(radHead.getPos());
+    tempTail.setPos(radTail.getPos());
+    int i = startPos;
+    while (tempHead.getPos() < tempTail.getPos()) {
+      raw_data_t t;
+      getNextData(&t);
 
-        while(Bean.readScratchNumber(5) == 0xAA && radHead.getPos() < radTail.getPos()){
-            raw_data_t t;
-            getNextData(&t);
-
-            Bean.setScratchNumber(1, t.count);
-            Bean.setScratchNumber(2, t.eventTime);
-            Bean.setScratchNumber(3, radHead.getPos());
-            Bean.setScratchNumber(5, 0);
-
-            const long timeOut = 1000;
-            long startTime = millis();
-            while(Bean.readScratchNumber(5) == 0 ){
-                if(millis() - startTime > timeOut){
-                    return;
-                }
-            }
+      Bean.setScratchNumber(1, t.count);
+      Bean.setScratchNumber(2, t.eventTime);
+      Serial.print(i++);
+      Serial.print(F(","));
+      Serial.print(t.eventTime-60);
+      Serial.print(F(","));
+      Serial.println(t.count);
+      tempHead.increment();
+      //Bean.setScratchNumber(5, 0xBB);
+      
+      const long timeOut = 30000;
+      long startTime = millis();
+      while (Bean.readScratchNumber(5) == moreDataCode ) {
+        if (millis() - startTime > timeOut) {
+          Bean.setScratchNumber(5, timeOutCode);
+          return;
         }
+      } 
     }
-
-}
+    Bean.setScratchNumber(5, endOfDataCode);
+  }
 
 
 int getNextData(raw_data_t* d){
     int dSz = sizeof(raw_data_t);
     uint8_t tempData[dSz];
 
-    radFram.getData(tempData, dSz, radHead.getPos());
+    radFram.getData(tempData, dSz, tempHead.getPos()*dSz);
 
     memmove(d, tempData, dSz);
-    return radHead.increment();
+    return tempHead.increment();
 
 }
 
@@ -195,9 +214,9 @@ int setNextData(raw_data_t* d){
     int dSz = sizeof(raw_data_t);
     uint8_t tempData[dSz];
     memmove(tempData, d, dSz);
-    Serial.print(F("Tail Position: "));
-    Serial.println(radTail.getPos());
-    radFram.writeData(tempData, dSz, radTail.getPos());
+    //Serial.print(F("Tail Position: "));
+    //Serial.println(radTail.getPos());
+    radFram.writeData(tempData, dSz, radTail.getPos()*dSz);
 
     return radTail.increment();
 
