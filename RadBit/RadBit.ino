@@ -9,11 +9,17 @@
 #include <Wire.h>
 #include "Adafruit_FRAM_SPI.h"
 
-RTC_DS3231 rtc;
+RTC_Millis rtc;
 
-const uint8_t timeOutCode = 0xDD;
-const uint8_t moreDataCode = 0xCC;
-const uint8_t endOfDataCode = 0xEE;
+//Bean --> Computer
+const uint8_t timeOutCodeBC = 0xDD;
+const uint8_t moreDataCodeBC = 0xCC;
+const uint8_t endOfDataCodeBC = 0xEE;
+const uint8_t clockNotSetCodeBC = 0xBD;
+
+//Computer --> Bean
+const uint8_t requestDataCodeCB = 0xBB;
+
 
 time_t countInterval = 60000;
 //time_t countInterval = 10000;
@@ -68,31 +74,25 @@ void begin() {
   blinkBean();
   delay(2000);
 
-  if (! rtc.begin()) {
-    Serial.println("Couldn't find RTC");
-    while (1) {
-      blinkBeanRed();
-      delay(1000);
-    }
-  }
-
+/*
   if (rtc.lostPower()) {
     Serial.println(F("RTC lost power, lets set the time!"));
     // following line sets the RTC to the date & time this sketch was compiled
-    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+    rtc.begin(DateTime(F(__DATE__), F(__TIME__)));
     // This line sets the RTC with an explicit date & time, for example to set
     // January 21, 2014 at 3am you would call:
     //rtc.adjust(DateTime(2017, 2, 14, 17, 1, 0));
   }
-
+*/
 
   radFram.begin();
 
   for (int i = 1; i <= 5; i++) {
     Bean.setScratchNumber(i, 0);
   }
-
-  Bean.setScratchNumber(5, 0xAF);
+  //Software RTC
+  rtc.begin(DateTime(F(__DATE__), F(__TIME__))); //set compile time. Will set real time and adjust data on first computer sync
+  Bean.setScratchNumber(5, 0xBD);
 
 
   //Radiation Sensor
@@ -127,9 +127,15 @@ void loop() {
     blinkBeanRed();
     radFlag = 0;
   }
-   if (Bean.readScratchNumber(5) == 0xBB) {
+  int statusReg = Bean.readScratchNumber(5);
+  
+  switch(statusReg){
+    case 0xBD:
+    
+    case 0xBB;
     dumpData();
  } 
+  }
   scheduler.run();
   delay(5);
 
@@ -188,7 +194,7 @@ void dumpData(){
       
       const long timeOut = 30000;
       long startTime = millis();
-      while (Bean.readScratchNumber(5) == moreDataCode ) {
+      while (Bean.readScratchNumber(5) == moreDataCodeBC ) {
         if (millis() - startTime > timeOut) {
           Bean.setScratchNumber(5, timeOutCode);
           return;
