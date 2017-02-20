@@ -1,54 +1,35 @@
 #pragma once
 #include "RadBit.h"
+#include "RadStorage.h"
 #include <Wire.h>
 #include "Adafruit_FRAM_SPI.h"
 
-//namespace rad{
 
-class RadFram{
+
+class RadFram : public RadStorageDevice{
 
 public:
-    RadFram();
+    RadFram(uint32_t framSize);
 
     void
-        begin( void ) ,
-        
-        getData( uint8_t*, uint8_t sz, uint16_t loc),
-        writeData( uint8_t*, uint8_t sz, uint16_t loc );
+        begin( ) ;
 
-
+    bool
+        getBytes( uint8_t*, uint8_t sz, uint32_t loc),
+        putBytes( uint8_t*, uint8_t sz, uint32_t loc),
+        writeBytes( uint8_t*, uint8_t sz, uint32_t loc );
 
 
 private:
     Adafruit_FRAM_SPI _fram;
 
-};
+    void
+        _write8(uint8_t c, uint32_t loc);
 
-class RadItr{
+    bool
+        _overflow(uint32_t pos);
 
-    public:
-        RadItr(uint8_t dataSz, long storageSz);
-
-        int
-            increment(),
-            decrement(),
-            getPos() const;
-
-        void
-          setPos( uint16_t pos);
-
-    private:
-        const uint8_t
-            _dataSz;
-
-        const long
-            _storageSz;
-        long
-            _position;
-
+    const uint32_t
+        _size;
 
 };
-
- extern RadFram radFram;
-
-//};
