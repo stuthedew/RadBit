@@ -12,7 +12,7 @@
 
 RTC_Millis rtc;
 
-time_t countInterval = 10000;  // Sums counts per 60 seconds
+time_t countInterval = 60000;  // Sums counts per 60 seconds
 
 RadFram rFram(framSzBytes);
 
@@ -165,6 +165,7 @@ void dumpData(){
   }
 
   radStorage.setHeadPos(0); //Reset Head position for debugging
+  
   Bean.setScratchNumber(5, endOfDataCodeBC);
  }
 

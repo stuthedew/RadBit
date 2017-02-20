@@ -114,3 +114,5 @@ iOS App/RadBean Playground.playground
 
 #node red backups
 .flows*
+
+nodeRed/RadData.csv
