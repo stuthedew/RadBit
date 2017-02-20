@@ -214,10 +214,15 @@
                 "t": "eq",
                 "v": "be",
                 "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "bc",
+                "vt": "str"
             }
         ],
         "checkall": "false",
-        "outputs": 3,
+        "outputs": 4,
         "x": 781.1904220581055,
         "y": 232.38095092773438,
         "wires": [
@@ -229,6 +234,9 @@
             ],
             [
                 "c73dbc53.720bd8"
+            ],
+            [
+                "aefb396f.81dca"
             ]
         ]
     },
@@ -428,7 +436,7 @@
         "type": "function",
         "z": "fe046d19.9869b8",
         "name": "Set Cmd Code",
-        "func": "msg.cmdKey = 'setTimeCmd';\nmsg.time = Math.floor(Date.now() / 1000);\n\nreturn msg;",
+        "func": "msg.cmdKey = 'setTimeCmd';\nmsg.time = Math.floor(Date.now() / 1000);\nconsole.log(\"Setting time\");\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 192.85714721679688,
@@ -478,8 +486,8 @@
         "type": "subflow:fe046d19.9869b8",
         "z": "5858ecc3.efacb4",
         "name": "",
-        "x": 979.5238647460938,
-        "y": 231.42857837677002,
+        "x": 1055.2381706237793,
+        "y": 144.28571891784668,
         "wires": [
             [
                 "c73dbc53.720bd8"
@@ -536,8 +544,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 1011.6666374206543,
-        "y": 365.0000352859497,
+        "x": 1071.6666946411133,
+        "y": 237.85718441009521,
         "wires": [
             [
                 "5f0fc1f6.318c5"
@@ -569,8 +577,8 @@
         "links": [
             "62733b57.ae0a2c"
         ],
-        "x": 1162.5000038146973,
-        "y": 365.00002431869507,
+        "x": 1226.7857112884521,
+        "y": 239.285737991333,
         "wires": []
     },
     {
@@ -579,8 +587,36 @@
         "z": "5858ecc3.efacb4",
         "name": "Go back to beginning",
         "info": "",
-        "x": 1025.8333587646484,
-        "y": 423.33333015441895,
+        "x": 1244.4047470092773,
+        "y": 187.61905097961426,
+        "wires": []
+    },
+    {
+        "id": "aefb396f.81dca",
+        "type": "function",
+        "z": "5858ecc3.efacb4",
+        "name": "No New Data",
+        "func": "msg.payload = \"No New Data\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1029.28568649292,
+        "y": 292.8571243286133,
+        "wires": [
+            [
+                "a4f562f8.141bb"
+            ]
+        ]
+    },
+    {
+        "id": "a4f562f8.141bb",
+        "type": "debug",
+        "z": "5858ecc3.efacb4",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 1226.428565979004,
+        "y": 294.28570556640625,
         "wires": []
     }
 ]
