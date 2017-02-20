@@ -53,7 +53,7 @@ uint32_t RadItr::decrement(){
 
 /************************************ Storage ********************************/
 
-RadStorage::RadStorage(RadStorageDevice* d): _head(sizeof(data_t)), _tail(sizeof(data_t)){
+RadStorage::RadStorage(RadStorageDevice* d): _head(sizeof(data_t)), _tail(sizeof(data_t)), _timeAdjust(sizeof(data_t)){
     _syncStatus = 0;
     _storage = d;
     //TODO: Add storage adjustments for head and tail data.
@@ -63,22 +63,25 @@ void RadStorage::begin( void ){
     _storage->begin();
 }
 
-storage_write_ret_code_e RadStorage::storeData(data_t* d){
+
+storage_write_ret_code_e RadStorage::storeData(data_t* d, RadItr* itr){
     int dSz = sizeof(data_t);
     uint8_t tempData[dSz];
     memmove(tempData, d, dSz);
 
-    bool storageStatus = _storage->writeBytes(tempData, dSz, _tail.getRawPos());
+    bool storageStatus = _storage->writeBytes(tempData, dSz, itr->getRawPos());
 
     if(!storageStatus){
         return OVERFLOW;
     }
-    _tail.increment();
+    itr->increment();
     //TODO: Check if sync bit is set and Sync tail to FRAM if so
     return SUCCESS;
 
+}
 
-
+storage_write_ret_code_e RadStorage::storeData(data_t* d){
+    return storeData(d, &_tail);
 }
 
 int32_t RadStorage::getData(data_t* d){
@@ -89,16 +92,22 @@ int32_t RadStorage::getData(data_t* d){
 }
 
 int32_t RadStorage::peekData(data_t* d){
+
+    return peekData(d, &_head);
+
+}
+
+int32_t RadStorage::peekData(data_t* d, RadItr* itr){
     int dSz = sizeof(data_t);
     uint8_t tempData[dSz];
 
-    _storage->getBytes(tempData, dSz, _head.getRawPos());
+    _storage->getBytes(tempData, dSz, itr->getRawPos());
 
     memmove(d, tempData, dSz);
 
     //TODO: Check if sync bit is set and Sync tail to FRAM if so
 
-    return _tail.getPos() - _head.getPos();
+    return _tail.getPos() - itr->getPos();
 
 }
 
@@ -114,12 +123,23 @@ void RadStorage::setSync(bool sync){
     _syncStatus = sync;
 }
 
-void RadStorage::_setHeadPos(uint32_t pos){
+void RadStorage::setHeadPos(uint32_t pos){
     _head.setRawPos(pos);
 
-    if(_tail.getRawPos() > pos){
+    if(_tail.getRawPos() < pos){
         _tail.setRawPos(pos);
     }
+}
+
+void RadStorage::adjustTime(time_t beanTime, time_t actualTime){
+    time_t timeDelta = actualTime - beanTime;
+    data_t d;
+    while(peekData(&d, &_timeAdjust) > 0){
+        d.eventTime += timeDelta;
+         storeData(&d, &_timeAdjust);
+    }
+    _syncStatus = true;
+    
 }
 
 //};

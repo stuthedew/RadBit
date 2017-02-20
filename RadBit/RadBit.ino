@@ -1,7 +1,7 @@
 
 #include "RadBit.h"
 #include "RadSensor.h"
-//#include "RadData.h"
+
 #include "RadStorage.h"
 #include "RadFram.h"
 #include "ComProtocol.h"
@@ -12,9 +12,7 @@
 
 RTC_Millis rtc;
 
-
-
-time_t countInterval = 60000;
+time_t countInterval = 10000;  // Sums counts per 60 seconds
 
 RadFram rFram(framSzBytes);
 
@@ -22,8 +20,6 @@ RadStorage radStorage(&rFram);
 
 Task countTask(&countFunc, countInterval, 0);
 
-RadItr radHead(sizeof(data_t));
-RadItr radTail(sizeof(data_t));
 
 volatile bool radFlag = 0;
 volatile bool timerFlag = 0;
@@ -46,34 +42,21 @@ void blinkBeanRed() {
   delay(75);
 }
 
-void startRadSensor() {
-  attachInterrupt(radSensor.getPin(), radEvent, FALLING);
 
+inline void startRadSensor() {
+  attachInterrupt(radSensor.getPin(), radEvent, FALLING);
 }
 
 inline void stopRadSensor() {
   detachInterrupt(0);
-
 }
 
 void begin() {
-
-
   blinkBean();
   blinkBean();
   blinkBean();
   delay(2000);
 
-/*
-  if (rtc.lostPower()) {
-    Serial.println(F("RTC lost power, lets set the time!"));
-    // following line sets the RTC to the date & time this sketch was compiled
-    rtc.begin(DateTime(F(__DATE__), F(__TIME__)));
-    // This line sets the RTC with an explicit date & time, for example to set
-    // January 21, 2014 at 3am you would call:
-    //rtc.adjust(DateTime(2017, 2, 14, 17, 1, 0));
-  }
-*/
 
   radStorage.begin();
 
@@ -105,13 +88,13 @@ void setup() {
   delay(5000);
   blinkBean();
 
-
   countTask.enable();
   startRadSensor();
 }
 
 
 void loop() {
+
   if (radFlag) {
     Bean.setScratchNumber(3, radCnt);
     blinkBeanRed();
@@ -121,7 +104,7 @@ void loop() {
 
   switch(statusReg){
     case setTimeCodeCB:
-      adjustTime(Bean.readScratchNumber(4));
+      adjustBeanTime();
       break;
 
     case requestDataCodeCB:
@@ -157,82 +140,44 @@ void countFunc() {
   Bean.setScratchNumber(4, d.eventTime);
 
   radStorage.storeData(&d);
-  //setNextData(&d);
 
   radCnt = 0;
 
   startRadSensor();
   countTask.enable();
+  if(radStorage.getSync()){
+      Bean.setScratchNumber(5, moreDataCodeBC);
+  }
 }
 
-RadItr tempHead(sizeof(data_t), framSzBytes);
 
 void dumpData(){
-    int startPos = 0;
+    data_t d;
 
-    RadItr tempTail(sizeof(data_t), framSzBytes);
-    tempHead.setPos(radHead.getPos());
-    tempTail.setPos(radTail.getPos());
-    int i = startPos;
-    while (tempHead.getPos() < tempTail.getPos()) {
-      data_t d;
-      radStorage.storeData(&d);
-      //getNextData(&t);
+    while (radStorage.getData(&d) > 0) {
 
       Bean.setScratchNumber(1, d.count);
       Bean.setScratchNumber(2, d.eventTime);
-      Serial.print(i++);
-      Serial.print(F(","));
+
       Serial.print(d.eventTime-60);
       Serial.print(F(","));
       Serial.println(d.count);
-      tempHead.increment();
-
-
-      const long timeOut = 30000;
-      long startTime = millis();
-      while (Bean.readScratchNumber(5) == moreDataCodeBC ) {
-        if (millis() - startTime > timeOut) {
-          Bean.setScratchNumber(5, timeOutCodeBC);
-          return;
-        }
-      }
-    }
-    Bean.setScratchNumber(5, endOfDataCodeBC);
   }
 
-/*
-int getNextData(data_t* d){
-    int dSz = sizeof(data_t);
-    uint8_t tempData[dSz];
+  radStorage.setHeadPos(0); //Reset Head position for debugging
+  Bean.setScratchNumber(5, endOfDataCodeBC);
+ }
 
-    radFram.getBytes(tempData, dSz, tempHead.getPos()*dSz);
 
-    memmove(d, tempData, dSz);
-    return tempHead.increment();
+void adjustBeanTime(){
+    Bean.setScratchNumber(5, updatingDataBC);
 
+    DateTime beanTime = rtc.now();
+    uint32_t actualT = Bean.readScratchNumber(4);
+
+    DateTime realTime(actualT);
+    rtc.adjust(realTime);
+    radStorage.adjustTime(beanTime.unixtime(), realTime.unixtime());
+
+    Bean.setScratchNumber(5, moreDataCodeBC);
 }
-*/
-void adjustTime(time_t curTime){
-  DateTime oldT = rtc.now();
-  DateTime curT(curTime);
-  rtc.adjust(curT);
-  time_t timeDelta = curTime - oldT.unixtime();
-
-  //TODO adjust previously stored Data;
-
-}
-/*
-int setNextData(data_t* d){
-    int dSz = sizeof(data_t);
-    uint8_t tempData[dSz];
-    memmove(tempData, d, dSz);
-    //Serial.print(F("Tail Position: "));
-    //Serial.println(radTail.getPos());
-    radFram.writeBytes(tempData, dSz, radTail.getPos()*dSz);
-
-    return radTail.increment();
-
-
-}
-*/

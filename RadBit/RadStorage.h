@@ -1,5 +1,6 @@
 #pragma once
 #include "RadBit.h"
+#include <Time.h>
 //#include "RadFram.h"
 //#include <Wire.h>
 //#include "Adafruit_FRAM_SPI.h"
@@ -10,8 +11,14 @@ typedef struct __attribute__((__packed__)){     //packed for straight forward st
 
     }data_t;
 
-const uint8_t headAddr = 0;
-const uint8_t tailAddr =  headAddr + sizeof(uint32_t);
+
+typedef struct __attribute__((__packed__)){     //packed for straight forward storage on FRAM
+    uint32_t headVal;
+    uint32_t tailVal;
+    uint32_t timeAdjustVal; // which data still need to be adjusted for time.
+
+}settings_t;
+
 
 
 typedef enum{
@@ -89,13 +96,17 @@ class RadStorage{
     void
         begin(),
         setSync( void ),
-        setSync( bool sync );
+        setSync( bool sync ),
+        setHeadPos(uint32_t pos),
+        adjustTime(time_t beanTime, time_t actualTime);
 
     storage_write_ret_code_e
+        storeData(data_t* d, RadItr* itr),
         storeData(data_t* d);
 
     int32_t
         peekData(data_t* d),
+        peekData(data_t* d, RadItr* itr),
         getData(data_t* d);
 
     bool
@@ -108,13 +119,16 @@ class RadStorage{
 
         RadItr
             _head,
-            _tail;
+            _tail,
+            _timeAdjust;
 
         bool
             _syncStatus;
 
+/*
         void
             _setHeadPos(uint32_t pos);
+            */
 };
 
 
