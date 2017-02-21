@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 15.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.2"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   width="57.643px"
+   height="71.833px"
+   viewBox="0 0 57.643 71.833"
+   xml:space="preserve"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="RD3024_DIagram.svg"><metadata
+     id="metadata111"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+     id="defs109" /><sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1210"
+     inkscape:window-height="735"
+     id="namedview107"
+     showgrid="false"
+     inkscape:zoom="9.292509"
+     inkscape:cx="28.680053"
+     inkscape:cy="29.681474"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="Layer_1" /><g
+     id="background"><rect
+       x="-28.625"
+       y="-21.614"
+       width="122.108"
+       height="122.062"
+       id="rect4"
+       fill="#F2F2F2" /></g><rect
+     style="fill:#ffffff;stroke:#000000;stroke-width:0.90020001;stroke-linecap:round"
+     height="57.598999"
+     width="43.199001"
+     y="7.1999998"
+     x="7.1999998"
+     id="part_symbol" /><g
+     id="g23"><line
+       x1="50.401001"
+       y1="43.200001"
+       x2="57.599998"
+       y2="43.203999"
+       id="line25"
+       style="fill:none;stroke:#555555;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:round" /></g><g
+     id="g27"><line
+       x1="28.799999"
+       y1="64.799004"
+       x2="28.799999"
+       y2="72"
+       id="line29"
+       style="fill:none;stroke:#555555;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:round" /></g><line
+     x1="0"
+     y1="43.200001"
+     x2="7.1999998"
+     y2="43.200001"
+     id="line35"
+     style="fill:none;stroke:#555555;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:round" /><g
+     id="g39"><line
+       x1="28.799999"
+       y1="7.2010002"
+       x2="28.799999"
+       y2="0"
+       id="line41"
+       style="fill:none;stroke:#555555;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:round" /></g><text
+     font-size="3"
+     id="text58"
+     style="font-size:3px;font-family:DroidSans;fill:#555555"
+     x="30.162399"
+     y="3.8729999">2</text>
+<text
+     font-size="3"
+     id="text60"
+     style="font-size:3px;font-family:DroidSans;fill:#555555"
+     x="30.162399"
+     y="69.109901">4</text>
+<text
+     font-size="3"
+     id="text66"
+     style="font-size:3px;font-family:DroidSans;fill:#555555"
+     x="2.7742"
+     y="41.811001">3</text>
+<text
+     font-size="3"
+     id="text68"
+     style="font-size:3px;font-family:DroidSans;fill:#555555"
+     x="53.1409"
+     y="42.074699">1</text>
+<text
+     font-size="4.5"
+     id="text73"
+     style="font-size:4.5px;font-family:DroidSans;fill:#555555"
+     x="40.7122"
+     y="44.318802">Out</text>
+<text
+     font-size="4.5"
+     id="text81"
+     style="font-size:4.5px;font-family:DroidSans;fill:#555555"
+     x="24.6106"
+     y="62.484901">Gnd</text>
+<text
+     font-size="4.5"
+     id="text83"
+     style="font-size:4.5px;font-family:DroidSans;fill:#555555"
+     x="25.511999"
+     y="12.5352">V</text>
+<text
+     font-size="4.5"
+     id="text85"
+     style="font-size:4.5px;font-family:DroidSans;fill:#555555"
+     x="27.932899"
+     y="12.5352">c</text>
+<text
+     font-size="4.5"
+     id="text87"
+     style="font-size:4.5px;font-family:DroidSans;fill:#555555"
+     x="30.0168"
+     y="12.5352">c</text>
+<text
+     font-size="4.5"
+     id="text95"
+     style="font-size:4.5px;font-family:DroidSans;fill:#555555"
+     x="9.2189999"
+     y="44.371601">Gnd</text>
+<text
+     y="21.4189"
+     x="17.868835"
+     style="font-size:6px;font-family:DroidSans"
+     id="text103"
+     font-size="6">TEVISO </text>
+<text
+     y="28.619101"
+     x="16.639833"
+     style="font-size:6px;font-family:DroidSans"
+     id="text105"
+     font-size="6">RD3024</text>
+</svg>

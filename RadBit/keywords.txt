@@ -1,12 +1,12 @@
 #######################################
-# Syntax Coloring Map For RadiationBean
+# Syntax Coloring Map For RadBit
 #######################################
 
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
 
-RadBeanClass	 KEYWORD1
+RadBit	 KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)

@@ -1,21 +1,35 @@
-
-#ifndef __RADFRAM_H
-#define __RADFRAM_H
+#pragma once
 #include "RadBit.h"
+#include "RadStorage.h"
+#include <Wire.h>
+#include "Adafruit_FRAM_SPI.h"
 
 
-class RadFRAM:public EventStorage {
+
+class RadFram : public RadStorageDevice{
+
 public:
-	RadFRAM(int ledPin=13);
+    RadFram(uint32_t framSize);
 
+    void
+        begin( ) ;
 
-	void begin( void );
-	void storeEvent( sensor_event_t e );
+    bool
+        getBytes( uint8_t*, uint8_t sz, uint32_t loc),
+        putBytes( uint8_t*, uint8_t sz, uint32_t loc),
+        writeBytes( uint8_t*, uint8_t sz, uint32_t loc );
+
 
 private:
-	const int _ledPin;
-	bool _ledState;
+    Adafruit_FRAM_SPI _fram;
+
+    void
+        _write8(uint8_t c, uint32_t loc);
+
+    bool
+        _overflow(uint32_t pos);
+
+    const uint32_t
+        _size;
 
 };
-
-#endif

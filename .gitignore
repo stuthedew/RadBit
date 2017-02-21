@@ -110,3 +110,9 @@ Eagle Files/adafruit.lbr
 iOS App/RadBean Playground.playground
 
 *.xc*
+
+
+#node red backups
+.flows*
+
+nodeRed/RadData.csv
