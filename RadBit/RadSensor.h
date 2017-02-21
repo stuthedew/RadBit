@@ -1,5 +1,5 @@
-#ifndef __RADSENSOR_H
-#define __RADSENSOR_H
+#pragma once
+
 #include "RadBit.h"
 #include "Arduino.h"
 
@@ -39,7 +39,3 @@ class Tevisio_RD3024 : public RadSensor{
 public:
     Tevisio_RD3024(int sensorPin);
 };
-
-
-
-#endif

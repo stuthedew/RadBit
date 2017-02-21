@@ -95,8 +95,8 @@ class RadStorage{
 
     void
         begin(),
-        setSync( void ),
-        setSync( bool sync ),
+        setClockSynced( void ),
+        setClockSynced( bool sync ),
         setHeadPos(uint32_t pos),
         adjustTime(time_t beanTime, time_t actualTime);
 
@@ -107,10 +107,12 @@ class RadStorage{
     int32_t
         peekData(data_t* d),
         peekData(data_t* d, RadItr* itr),
-        getData(data_t* d);
+        getData(data_t* d),
+        dataRemaining(RadItr* itr) ,
+        dataRemaining() ;
 
     bool
-        getSync() const;
+        getClockSynced() const;
 
 
     private:

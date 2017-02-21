@@ -290,9 +290,9 @@
         "z": "9532ae85.887e08",
         "name": "",
         "filename": "",
-        "appendNewline": true,
+        "appendNewline": false,
         "createDir": false,
-        "overwriteFile": "true",
+        "overwriteFile": "false",
         "x": 968.5714302062988,
         "y": 227.14284896850586,
         "wires": []
