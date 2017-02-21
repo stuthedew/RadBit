@@ -12,7 +12,7 @@
 /////////////////
 
 //----FRAM------//
-const unsigned long framSzBytes = 65536; 
+const unsigned long framSzBytes = 65536;
 
 
 /** SPI PINS **/
@@ -21,6 +21,8 @@ const int misoPin = 8;
 const int mosiPin = 7;
 const int csPin = 6;
 
+
+const int scratchRegister = 5;
 
 
 /** TIME OFFSET **/
@@ -43,6 +45,7 @@ public:
     virtual void storeEvent( sensor_event_t e ) = 0;
 
 };
+
 
 
 

@@ -14,6 +14,7 @@ RTC_Millis rtc;
 
 time_t countInterval = 60000;  // Sums counts per 60 seconds
 
+
 RadFram rFram(framSzBytes);
 
 RadStorage radStorage(&rFram);
@@ -26,7 +27,7 @@ volatile bool timerFlag = 0;
 volatile int radCnt = 0;
 const int intPin = 0;
 
-Tevisio_RD3024 radSensor(0);
+Tevisio_RD3024 radSensor(intPin);
 
 void blinkBean() {
   Bean.setLed(0, 250, 0);
@@ -65,7 +66,7 @@ void begin() {
   }
   //Software RTC
   rtc.begin(DateTime(F(__DATE__), F(__TIME__))); //set compile time. Will set real time and adjust data on first computer sync
-  Bean.setScratchNumber(5, clockNotSetCodeBC);
+  Bean.setScratchNumber(scratchRegister, clockNotSetCodeBC);
 
 
   //Radiation Sensor
@@ -100,7 +101,7 @@ void loop() {
     blinkBeanRed();
     radFlag = 0;
   }
-  int statusReg = Bean.readScratchNumber(5);
+  int statusReg = Bean.readScratchNumber(scratchRegister);
 
   switch(statusReg){
     case setTimeCodeCB:
@@ -145,15 +146,17 @@ void countFunc() {
 
   startRadSensor();
   countTask.enable();
-  if(radStorage.getSync()){
-      Bean.setScratchNumber(5, moreDataCodeBC);
+
+  if(radStorage.getClockSynced()){
+      Bean.setScratchNumber(scratchRegister, dataAvailableBC);
   }
+
 }
 
 
 void dumpData(){
     data_t d;
-
+    Bean.setScratchNumber(3, radStorage.getData(&d));
     while (radStorage.getData(&d) > 0) {
 
       Bean.setScratchNumber(1, d.count);
@@ -164,14 +167,14 @@ void dumpData(){
       Serial.println(d.count);
   }
 
-  radStorage.setHeadPos(0); //Reset Head position for debugging
-  
-  Bean.setScratchNumber(5, endOfDataCodeBC);
+  //radStorage.setHeadPos(0); //Reset Head position for debugging
+
+  Bean.setScratchNumber(scratchRegister, endOfDataCodeBC);
  }
 
 
 void adjustBeanTime(){
-    Bean.setScratchNumber(5, updatingDataBC);
+    Bean.setScratchNumber(scratchRegister, updatingDataBC);
 
     DateTime beanTime = rtc.now();
     uint32_t actualT = Bean.readScratchNumber(4);
@@ -180,5 +183,10 @@ void adjustBeanTime(){
     rtc.adjust(realTime);
     radStorage.adjustTime(beanTime.unixtime(), realTime.unixtime());
 
-    Bean.setScratchNumber(5, moreDataCodeBC);
+    if(radStorage.dataRemaining() > 0){
+        Bean.setScratchNumber(scratchRegister, dataAvailableBC);
+    }
+    else{
+        Bean.setScratchNumber(scratchRegister, endOfDataCodeBC);
+}
 }

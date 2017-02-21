@@ -75,7 +75,7 @@ storage_write_ret_code_e RadStorage::storeData(data_t* d, RadItr* itr){
         return OVERFLOW;
     }
     itr->increment();
-    //TODO: Check if sync bit is set and Sync tail to FRAM if so
+    //TODO: Check if sync bit is set and ClockSynced tail to FRAM if so
     return SUCCESS;
 
 }
@@ -105,21 +105,29 @@ int32_t RadStorage::peekData(data_t* d, RadItr* itr){
 
     memmove(d, tempData, dSz);
 
-    //TODO: Check if sync bit is set and Sync tail to FRAM if so
+    //TODO: Check if sync bit is set and sync tail to FRAM if so
 
-    return _tail.getPos() - itr->getPos();
+    return dataRemaining( itr );
 
 }
 
-bool RadStorage::getSync() const{
+int32_t RadStorage::dataRemaining(RadItr* itr) {
+	return _tail.getPos() - itr->getPos();
+}
+
+int32_t RadStorage::dataRemaining() {
+	return dataRemaining(&_head);
+}
+
+bool RadStorage::getClockSynced() const{
     return _syncStatus;
 }
 
-void RadStorage::setSync(void){
+void RadStorage::setClockSynced(void){
     _syncStatus = true;
 }
 
-void RadStorage::setSync(bool sync){
+void RadStorage::setClockSynced(bool sync){
     _syncStatus = sync;
 }
 
@@ -139,7 +147,7 @@ void RadStorage::adjustTime(time_t beanTime, time_t actualTime){
          storeData(&d, &_timeAdjust);
     }
     _syncStatus = true;
-    
+
 }
 
 //};
