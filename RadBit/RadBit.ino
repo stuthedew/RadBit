@@ -62,11 +62,11 @@ void begin() {
   radStorage.begin();
 
   for (int i = 1; i <= 5; i++) {
-    Bean.setScratchNumber(i, 0);
+    writeScratch(i, 0);
   }
   //Software RTC
   rtc.begin(DateTime(F(__DATE__), F(__TIME__))); //set compile time. Will set real time and adjust data on first computer sync
-  Bean.setScratchNumber(scratchRegister, clockNotSetCodeBC);
+  writeScratch(scratchRegister, clockNotSetCodeBC);
 
 
   //Radiation Sensor
@@ -97,7 +97,10 @@ void setup() {
 void loop() {
 
   if (radFlag) {
-    Bean.setScratchNumber(3, radCnt);
+      stopRadSensor();
+      delay(40);
+    writeScratch(1, radCnt);
+    startRadSensor();
     blinkBeanRed();
     radFlag = 0;
   }
@@ -137,10 +140,12 @@ void countFunc() {
 
   d.eventTime = temp.unixtime();
   d.count = radCnt;
-  Bean.setScratchNumber(3, d.count);
-  Bean.setScratchNumber(4, d.eventTime);
+  writeScratch(1, d.count);
+  writeScratch(2, d.eventTime);
 
-  radStorage.storeData(&d);
+  if(radStorage.storeData(&d) == OVERFLOW){
+      writeScratch(scratchRegister, StorageOverFlowBC);
+  }
 
   radCnt = 0;
 
@@ -148,7 +153,7 @@ void countFunc() {
   countTask.enable();
 
   if(radStorage.getClockSynced()){
-      Bean.setScratchNumber(scratchRegister, dataAvailableBC);
+      writeScratch(scratchRegister, dataAvailableBC);
   }
 
 }
@@ -156,11 +161,12 @@ void countFunc() {
 
 void dumpData(){
     data_t d;
-    Bean.setScratchNumber(3, radStorage.getData(&d));
-    while (radStorage.getData(&d) > 0) {
+    writeScratch(3, radStorage.dataRemaining());
 
-      Bean.setScratchNumber(1, d.count);
-      Bean.setScratchNumber(2, d.eventTime);
+    while (radStorage.dataRemaining() > 0) {
+        radStorage.getData(&d);
+      //writeScratch(1, d.count);
+      //writeScratch(2, d.eventTime);
 
       Serial.print(d.eventTime-60);
       Serial.print(F(","));
@@ -169,12 +175,12 @@ void dumpData(){
 
   //radStorage.setHeadPos(0); //Reset Head position for debugging
 
-  Bean.setScratchNumber(scratchRegister, endOfDataCodeBC);
+  writeScratch(scratchRegister, endOfDataCodeBC);
  }
 
 
 void adjustBeanTime(){
-    Bean.setScratchNumber(scratchRegister, updatingDataBC);
+    writeScratch(scratchRegister, updatingDataBC);
 
     DateTime beanTime = rtc.now();
     uint32_t actualT = Bean.readScratchNumber(4);
@@ -184,9 +190,17 @@ void adjustBeanTime(){
     radStorage.adjustTime(beanTime.unixtime(), realTime.unixtime());
 
     if(radStorage.dataRemaining() > 0){
-        Bean.setScratchNumber(scratchRegister, dataAvailableBC);
+        writeScratch(scratchRegister, dataAvailableBC);
     }
     else{
-        Bean.setScratchNumber(scratchRegister, endOfDataCodeBC);
+        writeScratch(scratchRegister, endOfDataCodeBC);
 }
+}
+
+void writeScratch(int sNum, int val){
+    stopRadSensor();
+    Bean.setScratchNumber(sNum, val);
+    delay(25);
+    startRadSensor();
+
 }

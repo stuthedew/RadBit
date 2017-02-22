@@ -57,6 +57,9 @@ RadStorage::RadStorage(RadStorageDevice* d): _head(sizeof(data_t)), _tail(sizeof
     _syncStatus = 0;
     _storage = d;
     //TODO: Add storage adjustments for head and tail data.
+    _head.setRawPos(0);
+	_tail.setRawPos(0);
+	_timeAdjust.setRawPos(0);
 }
 
 void RadStorage::begin( void ){

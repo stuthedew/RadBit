@@ -45,6 +45,9 @@
                 "wires": [
                     {
                         "id": "4b3f238.0ba925c"
+                    },
+                    {
+                        "id": "4b840869.a908f8"
                     }
                 ]
             }
@@ -149,7 +152,8 @@
         "y": 233.1428575515747,
         "wires": [
             [
-                "5150e905.36f44"
+                "5150e905.36f44",
+                "c886604e.4e451"
             ]
         ]
     },
@@ -340,7 +344,7 @@
         "type": "function",
         "z": "9532ae85.887e08",
         "name": "Set Complete",
-        "func": "msg.complete = 1;\nmsg.payload = \"\\r\";\nreturn msg;",
+        "func": "msg.complete = 1;\nmsg.payload = null;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 861.428524017334,
@@ -617,6 +621,46 @@
         "complete": "false",
         "x": 1226.428565979004,
         "y": 294.28570556640625,
+        "wires": []
+    },
+    {
+        "id": "ceec4113.e980d",
+        "type": "debug",
+        "z": "9532ae85.887e08",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 332.14284896850586,
+        "y": 138.57142162322998,
+        "wires": []
+    },
+    {
+        "id": "4b840869.a908f8",
+        "type": "function",
+        "z": "9532ae85.887e08",
+        "name": "Notify data ready",
+        "func": "msg.payload = \"New Data\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 216.42857360839844,
+        "y": 137.14287090301514,
+        "wires": [
+            [
+                "ceec4113.e980d"
+            ]
+        ]
+    },
+    {
+        "id": "c886604e.4e451",
+        "type": "debug",
+        "z": "5858ecc3.efacb4",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "beanStatus",
+        "x": 832.9999999999998,
+        "y": 351.99999999999994,
         "wires": []
     }
 ]
