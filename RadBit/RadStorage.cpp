@@ -149,7 +149,7 @@ void RadStorage::adjustTime(time_t beanTime, time_t actualTime){
         d.eventTime += timeDelta;
          storeData(&d, &_timeAdjust);
     }
-    _syncStatus = true;
+    setClockSynced();
 
 }
 
