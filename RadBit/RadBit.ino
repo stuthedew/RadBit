@@ -13,6 +13,10 @@
 RTC_Millis rtc;
 
 time_t countInterval = 60000;  // Sums counts per 60 seconds
+time_t advertisingInterval = 30000;
+
+volatile unsigned long pulseStart;
+const unsigned long pulseWidth = 50;
 
 
 RadFram rFram(framSzBytes);
@@ -20,6 +24,7 @@ RadFram rFram(framSzBytes);
 RadStorage radStorage(&rFram);
 
 Task countTask(&countFunc, countInterval, 0);
+Task advertisingTask(&enableAdvertising, advertisingInterval, 1);
 
 
 volatile bool radFlag = 0;
@@ -28,6 +33,10 @@ volatile int radCnt = 0;
 const int intPin = 0;
 
 Tevisio_RD3024 radSensor(intPin);
+
+void enableAdvertising(){
+    Bean.enableAdvertising(true, 10000);
+}
 
 void blinkBean() {
   Bean.setLed(0, 250, 0);
@@ -43,9 +52,22 @@ void blinkBeanRed() {
   delay(75);
 }
 
+void powerSettings(){
+    Bean.setAccelerometerPowerMode(0x80); //Suspend mode (~0.5uA)
+
+    // Disable the ADC by setting the ADEN bit (bit 7)  of the
+    // ADCSRA register to zero.
+    ADCSRA = ADCSRA & B01111111;
+
+    // Disable the analog comparator by setting the ACD bit
+    // (bit 7) of the ACSR register to one.
+    ACSR = B10000000;
+
+}
+
 
 inline void startRadSensor() {
-  attachInterrupt(radSensor.getPin(), radEvent, FALLING);
+  attachInterrupt(radSensor.getPin(), radEventRise, RISING);
 }
 
 inline void stopRadSensor() {
@@ -56,7 +78,8 @@ void begin() {
   blinkBean();
   blinkBean();
   blinkBean();
-  delay(2000);
+  Bean.enableAdvertising(true);
+
 
 
   radStorage.begin();
@@ -80,13 +103,17 @@ void begin() {
   //TODO Power Manegment
 
   scheduler.addEvent(&countTask);
+  scheduler.addEvent(&advertisingTask);
+  Bean.enableAdvertising(true);
+  delay(5000);
+
 }
 
 
 void setup() {
 
   begin();
-  delay(5000);
+
   blinkBean();
 
   countTask.enable();
@@ -119,19 +146,32 @@ void loop() {
   scheduler.run();
   delay(5);
 
+
 }
 
 
-void radEvent() {
+void radEventRise() {
   stopRadSensor();
-  radFlag = 1;
-  radCnt++;
-  startRadSensor();
+  pulseStart = micros();
+  attachInterrupt(radSensor.getPin(), radEventFall, FALLING);
+
+
+}
+
+void radEventFall() {
+  stopRadSensor();
+  if(micros() - pulseStart >= pulseWidth){
+      radFlag = 1;
+      radCnt++;
+  }
+  attachInterrupt(radSensor.getPin(), radEventRise, RISING);
+
 
 }
 
 
 void countFunc() {
+
   countTask.disable();
   stopRadSensor();
   DateTime temp = rtc.now();
