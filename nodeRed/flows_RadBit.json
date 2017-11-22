@@ -1,0 +1,666 @@
+[
+    {
+        "id": "5858ecc3.efacb4",
+        "type": "tab",
+        "label": "Main"
+    },
+    {
+        "id": "bd4dea40.ebfae8",
+        "type": "subflow",
+        "name": "Get Status Code",
+        "info": "",
+        "in": [
+            {
+                "x": 50,
+                "y": 30,
+                "wires": [
+                    {
+                        "id": "882b89d6.3328a"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 551,
+                "y": 39,
+                "wires": [
+                    {
+                        "id": "882b89d6.3328a",
+                        "port": 0
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "9532ae85.887e08",
+        "type": "subflow",
+        "name": "DataDump",
+        "info": "",
+        "in": [
+            {
+                "x": 50,
+                "y": 30,
+                "wires": [
+                    {
+                        "id": "4b3f238.0ba925c"
+                    },
+                    {
+                        "id": "4b840869.a908f8"
+                    }
+                ]
+            }
+        ],
+        "out": []
+    },
+    {
+        "id": "fe046d19.9869b8",
+        "type": "subflow",
+        "name": "Set Time",
+        "info": "",
+        "in": [
+            {
+                "x": 50,
+                "y": 30,
+                "wires": [
+                    {
+                        "id": "825fd107.1c1018"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 738.3333568572998,
+                "y": 136.66666412353516,
+                "wires": [
+                    {
+                        "id": "d9c8c5b3.87e148",
+                        "port": 0
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "a01e083.aca8bf8",
+        "type": "subflow",
+        "name": "Set Status Code",
+        "info": "",
+        "in": [
+            {
+                "x": 50,
+                "y": 30,
+                "wires": [
+                    {
+                        "id": "b7889576.faf4a"
+                    }
+                ]
+            }
+        ],
+        "out": []
+    },
+    {
+        "id": "8cfa8503.6e44a",
+        "type": "bean",
+        "z": "",
+        "name": "Stuart's Bean+",
+        "uuid": "",
+        "connectiontype": "constant",
+        "connectiontimeout": "0"
+    },
+    {
+        "id": "882b89d6.3328a",
+        "type": "function",
+        "z": "bd4dea40.ebfae8",
+        "name": "Convert to Hex String",
+        "func": "hex = msg.scratch5;\nhex = hex.toString(16);\nmsg.beanStatus = hex;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 292.6428527832031,
+        "y": 26.571428298950195,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cf5812a6.f8794",
+        "type": "inject",
+        "z": "5858ecc3.efacb4",
+        "name": "Get Data",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 107.5,
+        "y": 234,
+        "wires": [
+            [
+                "f2c721a.131bf6"
+            ]
+        ]
+    },
+    {
+        "id": "39022d63.bb9372",
+        "type": "subflow:bd4dea40.ebfae8",
+        "z": "5858ecc3.efacb4",
+        "name": "",
+        "x": 537.7500419616699,
+        "y": 233.1428575515747,
+        "wires": [
+            [
+                "5150e905.36f44",
+                "c886604e.4e451"
+            ]
+        ]
+    },
+    {
+        "id": "5b7b12.14c62cf",
+        "type": "comment",
+        "z": "5858ecc3.efacb4",
+        "name": "Check Bean Status on Start",
+        "info": "",
+        "x": 454.3452453613281,
+        "y": 176.07144832611084,
+        "wires": []
+    },
+    {
+        "id": "f2c721a.131bf6",
+        "type": "read scratch",
+        "z": "5858ecc3.efacb4",
+        "bean": "8cfa8503.6e44a",
+        "name": "Read Status Register",
+        "readOne": false,
+        "property1": "payload",
+        "type1": "string",
+        "readTwo": false,
+        "property2": "",
+        "type2": "string",
+        "readThree": false,
+        "property3": "",
+        "type3": "string",
+        "readFour": false,
+        "property4": "",
+        "type4": "string",
+        "readFive": true,
+        "property5": "",
+        "type5": "number",
+        "x": 309.5,
+        "y": 233,
+        "wires": [
+            [
+                "39022d63.bb9372"
+            ]
+        ]
+    },
+    {
+        "id": "5150e905.36f44",
+        "type": "switch",
+        "z": "5858ecc3.efacb4",
+        "name": "Bean Status Switch",
+        "property": "beanStatus",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "bb",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "bd",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "be",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "bc",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "outputs": 4,
+        "x": 781.1904220581055,
+        "y": 232.38095092773438,
+        "wires": [
+            [
+                "b8d79e05.0e7e1"
+            ],
+            [
+                "de5729d9.3f542"
+            ],
+            [
+                "c73dbc53.720bd8"
+            ],
+            [
+                "aefb396f.81dca"
+            ]
+        ]
+    },
+    {
+        "id": "c3166f40.b3a1c",
+        "type": "bean serial",
+        "z": "9532ae85.887e08",
+        "name": "",
+        "bean": "8cfa8503.6e44a",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": false,
+        "x": 351.4285202026367,
+        "y": 227.1428508758545,
+        "wires": [
+            [
+                "90fe4df5.383fd",
+                "33ea3ea1.48cd2a"
+            ]
+        ]
+    },
+    {
+        "id": "4b3f238.0ba925c",
+        "type": "function",
+        "z": "9532ae85.887e08",
+        "name": "Set Cmd Str",
+        "func": "msg.cmdKey = \"dumpDataCmd\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 258.57142639160156,
+        "y": 60,
+        "wires": [
+            [
+                "729fe94f.1ddc7"
+            ]
+        ]
+    },
+    {
+        "id": "b8d79e05.0e7e1",
+        "type": "subflow:9532ae85.887e08",
+        "z": "5858ecc3.efacb4",
+        "name": "",
+        "x": 959.9999999999999,
+        "y": 99.99999999999999,
+        "wires": []
+    },
+    {
+        "id": "4af975fa.5714ec",
+        "type": "file",
+        "z": "9532ae85.887e08",
+        "name": "",
+        "filename": "",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "false",
+        "x": 968.5714302062988,
+        "y": 227.14284896850586,
+        "wires": []
+    },
+    {
+        "id": "90fe4df5.383fd",
+        "type": "function",
+        "z": "9532ae85.887e08",
+        "name": "Set Filename",
+        "func": "msg.filename = \"RadData.csv\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 562.8570861816406,
+        "y": 225.71429443359375,
+        "wires": [
+            [
+                "836c1764.83e45",
+                "5682ae0c.03d9a"
+            ]
+        ]
+    },
+    {
+        "id": "836c1764.83e45",
+        "type": "trigger",
+        "z": "9532ae85.887e08",
+        "op1": "",
+        "op2": "complete",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "250",
+        "extend": true,
+        "units": "ms",
+        "reset": "",
+        "name": "Message Watchdog",
+        "x": 424.28578186035156,
+        "y": 384.2857265472412,
+        "wires": [
+            [
+                "3da7c969.5531d6"
+            ]
+        ]
+    },
+    {
+        "id": "8e7f3be0.5f72c8",
+        "type": "function",
+        "z": "9532ae85.887e08",
+        "name": "Set Complete",
+        "func": "msg.complete = 1;\nmsg.payload = null;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 861.428524017334,
+        "y": 381.42857837677,
+        "wires": [
+            [
+                "5682ae0c.03d9a"
+            ]
+        ]
+    },
+    {
+        "id": "5682ae0c.03d9a",
+        "type": "join",
+        "z": "9532ae85.887e08",
+        "name": "",
+        "mode": "custom",
+        "build": "string",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "timeout": "",
+        "count": "",
+        "x": 825.7143173217773,
+        "y": 225.71430015563965,
+        "wires": [
+            [
+                "4af975fa.5714ec"
+            ]
+        ]
+    },
+    {
+        "id": "3da7c969.5531d6",
+        "type": "switch",
+        "z": "9532ae85.887e08",
+        "name": "Message Flow Control",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "complete",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "outputs": 1,
+        "x": 647.1428451538086,
+        "y": 381.4285717010498,
+        "wires": [
+            [
+                "8e7f3be0.5f72c8"
+            ]
+        ]
+    },
+    {
+        "id": "a309fcee.51591",
+        "type": "comment",
+        "z": "9532ae85.887e08",
+        "name": "Write Serial Data Dump to CSV file",
+        "info": "",
+        "x": 685.7142791748047,
+        "y": 318.57141304016113,
+        "wires": []
+    },
+    {
+        "id": "b7889576.faf4a",
+        "type": "function",
+        "z": "a01e083.aca8bf8",
+        "name": "Get Command Hex",
+        "func": "\nmsg.cmdCode = parseInt(global.get(msg.cmdKey));\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 207.14285278320312,
+        "y": 30.000009536743164,
+        "wires": [
+            [
+                "845f4159.126408"
+            ]
+        ]
+    },
+    {
+        "id": "729fe94f.1ddc7",
+        "type": "subflow:a01e083.aca8bf8",
+        "z": "9532ae85.887e08",
+        "name": "",
+        "x": 490.0000305175781,
+        "y": 59.99999523162842,
+        "wires": []
+    },
+    {
+        "id": "825fd107.1c1018",
+        "type": "function",
+        "z": "fe046d19.9869b8",
+        "name": "Set Cmd Code",
+        "func": "msg.cmdKey = 'setTimeCmd';\nmsg.time = Math.floor(Date.now() / 1000);\nconsole.log(\"Setting time\");\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 192.85714721679688,
+        "y": 32.85714149475098,
+        "wires": [
+            [
+                "d9c8c5b3.87e148",
+                "1e5ec4a6.32b933"
+            ]
+        ]
+    },
+    {
+        "id": "b5be6a37.1376a8",
+        "type": "subflow:a01e083.aca8bf8",
+        "z": "fe046d19.9869b8",
+        "name": "",
+        "x": 626.9047470092773,
+        "y": 34.523813247680664,
+        "wires": []
+    },
+    {
+        "id": "1e5ec4a6.32b933",
+        "type": "write scratch",
+        "z": "fe046d19.9869b8",
+        "bean": "8cfa8503.6e44a",
+        "name": "Write Time",
+        "msgProperty": "time",
+        "writeMethod": "writeFour",
+        "x": 384.5237731933594,
+        "y": 134.5238094329834,
+        "wires": []
+    },
+    {
+        "id": "845f4159.126408",
+        "type": "write scratch",
+        "z": "a01e083.aca8bf8",
+        "bean": "8cfa8503.6e44a",
+        "name": "Set Cmd Code",
+        "msgProperty": "cmdCode",
+        "writeMethod": "writeFive",
+        "x": 479.9999809265137,
+        "y": 30.000003814697266,
+        "wires": []
+    },
+    {
+        "id": "de5729d9.3f542",
+        "type": "subflow:fe046d19.9869b8",
+        "z": "5858ecc3.efacb4",
+        "name": "",
+        "x": 1071.9048690795898,
+        "y": 187.61904907226562,
+        "wires": [
+            [
+                "c73dbc53.720bd8"
+            ]
+        ]
+    },
+    {
+        "id": "33ea3ea1.48cd2a",
+        "type": "debug",
+        "z": "9532ae85.887e08",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 770.7142857142857,
+        "y": 168.57142857142856,
+        "wires": []
+    },
+    {
+        "id": "d9c8c5b3.87e148",
+        "type": "delay",
+        "z": "fe046d19.9869b8",
+        "name": "Wait for time to be set",
+        "pauseType": "delay",
+        "timeout": "100",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 405.0000114440918,
+        "y": 35.000000953674316,
+        "wires": [
+            [
+                "b5be6a37.1376a8"
+            ]
+        ]
+    },
+    {
+        "id": "c73dbc53.720bd8",
+        "type": "delay",
+        "z": "5858ecc3.efacb4",
+        "name": "Wait for data update",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1058.3334579467773,
+        "y": 282.8571672439575,
+        "wires": [
+            [
+                "5f0fc1f6.318c5"
+            ]
+        ]
+    },
+    {
+        "id": "62733b57.ae0a2c",
+        "type": "link in",
+        "z": "5858ecc3.efacb4",
+        "name": "Start",
+        "links": [
+            "5f0fc1f6.318c5",
+            "68c1f471.b0d514"
+        ],
+        "x": 132.5,
+        "y": 301.66668224334717,
+        "wires": [
+            [
+                "f2c721a.131bf6"
+            ]
+        ]
+    },
+    {
+        "id": "5f0fc1f6.318c5",
+        "type": "link out",
+        "z": "5858ecc3.efacb4",
+        "name": "Return to start",
+        "links": [
+            "62733b57.ae0a2c"
+        ],
+        "x": 1206.7858142852783,
+        "y": 282.61905097961426,
+        "wires": []
+    },
+    {
+        "id": "12de7ed.37d4c01",
+        "type": "comment",
+        "z": "5858ecc3.efacb4",
+        "name": "Go back to beginning",
+        "info": "",
+        "x": 1184.404872894287,
+        "y": 332.6190605163574,
+        "wires": []
+    },
+    {
+        "id": "aefb396f.81dca",
+        "type": "function",
+        "z": "5858ecc3.efacb4",
+        "name": "No New Data",
+        "func": "msg.payload = \"No New Data\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 987.6190185546875,
+        "y": 427.85711765289307,
+        "wires": [
+            [
+                "a4f562f8.141bb"
+            ]
+        ]
+    },
+    {
+        "id": "a4f562f8.141bb",
+        "type": "debug",
+        "z": "5858ecc3.efacb4",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 1179.7619323730469,
+        "y": 427.6190299987793,
+        "wires": []
+    },
+    {
+        "id": "ceec4113.e980d",
+        "type": "debug",
+        "z": "9532ae85.887e08",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 332.14284896850586,
+        "y": 138.57142162322998,
+        "wires": []
+    },
+    {
+        "id": "4b840869.a908f8",
+        "type": "function",
+        "z": "9532ae85.887e08",
+        "name": "Notify data ready",
+        "func": "msg.payload = \"New Data\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 216.42857360839844,
+        "y": 137.14287090301514,
+        "wires": [
+            [
+                "ceec4113.e980d"
+            ]
+        ]
+    },
+    {
+        "id": "c886604e.4e451",
+        "type": "debug",
+        "z": "5858ecc3.efacb4",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "beanStatus",
+        "x": 711.3333282470703,
+        "y": 340.33333683013916,
+        "wires": []
+    }
+]
